@@ -13,6 +13,7 @@ namespace ScraperClientLib.Engine
         private readonly object _lockObject = new object();
         private readonly HttpClient _httpClient;
         private readonly List<BaseParser> _parsers;
+        private readonly List<IInterventionHandler> _interventionHandlers;
         private readonly Dictionary<string, string> _defaultHeaders;
 
         public CultureInfo ServerCulture { get; set; }
@@ -21,6 +22,7 @@ namespace ScraperClientLib.Engine
         {
             _httpClient = new HttpClient();
             _parsers = new List<BaseParser>();
+            _interventionHandlers = new List<IInterventionHandler>();
             _defaultHeaders = new Dictionary<string, string>();
 
             RegisterDefaultHeader("Accept-Encoding", "gzip, deflate");
@@ -35,6 +37,12 @@ namespace ScraperClientLib.Engine
         {
             using (EnterExclusive())
                 _parsers.Add(parser);
+        }
+
+        public void RegisterIntervention(IInterventionHandler handler)
+        {
+            using (EnterExclusive())
+                _interventionHandlers.Add(handler);
         }
 
         protected virtual void PostRequest(ResponseDocument response)
@@ -73,13 +81,51 @@ namespace ScraperClientLib.Engine
             return req;
         }
 
+        private ResponseDocument IssueRequestInternal(HttpRequestMessage request)
+        {
+            HttpResponseMessage response = _httpClient.SendAsync(request).Sync();
+
+            ResponseDocument result = new ResponseDocument(request, response);
+
+            return result;
+        }
+
         public ResponseDocument IssueRequest(HttpRequestMessage request)
         {
             using (EnterExclusive())
             {
-                HttpResponseMessage response = _httpClient.SendAsync(request).Sync();
+                ResponseDocument result = IssueRequestInternal(request);
 
-                ResponseDocument result = new ResponseDocument(request, response);
+                // Check interventions
+                foreach (IInterventionHandler handler in _interventionHandlers)
+                {
+                    if (handler.DoIntervention(result))
+                    {
+                        // Woops, intervention needs to be handled
+                        InterventionResult interventionResult = handler.Handle(result);
+
+                        if (interventionResult.IntermediateTask != null)
+                        {
+                            // Process intermediate request
+                            // TODO: Should we recurse?
+                            IssueRequestInternal(request);
+                        }
+
+                        switch (interventionResult.State)
+                        {
+                            case InterventionResultState.Abort:
+                                throw new Exception("Unable to process request");
+                            case InterventionResultState.RetryCurrentTask:
+                                // Retry same request
+                                IssueRequest(request);
+                                break;
+                            case InterventionResultState.Continue:
+                                break;
+                            default:
+                                throw new ArgumentOutOfRangeException();
+                        }
+                    }
+                }
 
                 // Process all parsers
                 foreach (BaseParser parser in _parsers)

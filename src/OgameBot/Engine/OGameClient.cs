@@ -34,6 +34,8 @@ namespace OgameBot.Engine
             RegisterParser(new ResearchPageParser());
             RegisterParser(new ResourcesPageParser());
             RegisterParser(new ShipyardPageParser());
+
+            RegisterIntervention(new OGameAutoLoginner(this));
         }
 
         protected override void PostRequest(ResponseDocument response)
@@ -45,20 +47,23 @@ namespace OgameBot.Engine
             }
         }
 
+        internal HttpRequestMessage PrepareLogin()
+        {
+            NameValueCollection nvc = new NameValueCollection();
+            nvc["kid"] = "";
+            nvc["uni"] = _server;
+            nvc["login"] = _username;
+            nvc["pass"] = _password;
+
+            return BuildPost(_loginUri, nvc);
+        }
+
         public void PerformLogin()
         {
             using (EnterExclusive())
             {
-                NameValueCollection nvc = new NameValueCollection();
-                nvc["kid"] = "";
-                nvc["uni"] = _server;
-                nvc["login"] = _username;
-                nvc["pass"] = _password;
-
-                HttpRequestMessage loginReq = BuildPost(_loginUri, nvc);
-                ResponseDocument loginsResp = IssueRequest(loginReq);
-
-
+                HttpRequestMessage loginReq = PrepareLogin();
+                IssueRequest(loginReq);
             }
         }
     }
