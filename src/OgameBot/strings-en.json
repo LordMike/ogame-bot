@@ -1,0 +1,26 @@
+{
+	"Strings" : {
+		"ResourceType" : {
+			"Metal" : "Metal",
+			"Crystal" : "Crystal",
+			"Deuterium" : "Deuterium",
+			"Energy" : "Energy"
+		},
+		"ShipType" : {
+			"LightFighter" : "Light Fighter",
+			"HeavyFighter" : "Heavy Fighter",
+			"Cruiser" : "Cruiser",
+			"Battleship" : "Battleship",
+			"Recycler" : "Recycler",
+			"EspionageProbe" : "Espionage Probe",
+			"Bomber" : "Bomber",
+			"Destroyer" : "Destroyer",
+			"Deathstar" : "Deathstar",
+			"Battlecruiser" : "Battlecruiser",
+			"SmallCargo" : "Small Cargo",
+			"LargeCargo" : "Large Cargo",
+			"Colony" : "Colony Ship",
+			"SolarSatellite" : "Solar Satellite"
+		}
+	}
+}
