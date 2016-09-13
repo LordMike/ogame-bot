@@ -1,14 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using OgameBot.Engine;
 using OgameBot.Objects;
 using OgameBot.Objects.Types;
 using OgameBot.Parsers.Objects;
-using OgameBot.Utilities;
 using ScraperClientLib.Engine;
 
 namespace OgameBot.Parsers

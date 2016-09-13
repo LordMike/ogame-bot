@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using OgameBot.Engine;
-using OgameBot.Objects.Types;
 
 namespace OgameBot
 {
