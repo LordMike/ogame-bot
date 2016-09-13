@@ -15,14 +15,14 @@ namespace OgameBot.Parsers
     {
         private static readonly Regex FleetIdRegex = new Regex(@"fleet([\d]+)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
-        public override bool ShouldProcessInternal(ResponseDocument document)
+        public override bool ShouldProcessInternal(ResponseContainer container)
         {
-            return document.RequestMessage.RequestUri.Query.Contains("page=movement");
+            return container.RequestMessage.RequestUri.Query.Contains("page=movement");
         }
 
-        public override IEnumerable<DataObject> ProcessInternal(ClientBase client, ResponseDocument document)
+        public override IEnumerable<DataObject> ProcessInternal(ClientBase client, ResponseContainer container)
         {
-            HtmlDocument doc = document.ResponseHtml.Value;
+            HtmlDocument doc = container.ResponseHtml.Value;
             HtmlNodeCollection imageFields = doc.DocumentNode.SelectNodes("//div[starts-with(@id, 'fleet')]");
 
             if (imageFields == null)

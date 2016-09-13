@@ -14,7 +14,7 @@ namespace OgameBot.Engine
             _client = client;
         }
 
-        public bool DoIntervention(ResponseDocument offendingTask)
+        public bool DoIntervention(ResponseContainer offendingTask)
         {
             if (offendingTask.StatusCode == HttpStatusCode.Redirect && offendingTask.ResponseMessage.Headers.Location != null)
             {
@@ -32,7 +32,7 @@ namespace OgameBot.Engine
             return false;
         }
 
-        public InterventionResult Handle(ResponseDocument offendingTask)
+        public InterventionResult Handle(ResponseContainer offendingTask)
         {
             // Build login request
             HttpRequestMessage loginReq = _client.PrepareLogin();

@@ -2,7 +2,7 @@
 {
     public interface IInterventionHandler
     {
-        bool DoIntervention(ResponseDocument offendingTask);
-        InterventionResult Handle(ResponseDocument offendingTask);
+        bool DoIntervention(ResponseContainer offendingTask);
+        InterventionResult Handle(ResponseContainer offendingTask);
     }
 }

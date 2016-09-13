@@ -12,15 +12,15 @@ namespace OgameBot.Parsers
 {
     public class PlanetResourcesParser : BaseParser
     {
-        public override bool ShouldProcessInternal(ResponseDocument document)
+        public override bool ShouldProcessInternal(ResponseContainer container)
         {
             // Always parse this (if it's html)
-            return document.IsHtmlResponse;
+            return container.IsHtmlResponse;
         }
 
-        public override IEnumerable<DataObject> ProcessInternal(ClientBase client, ResponseDocument document)
+        public override IEnumerable<DataObject> ProcessInternal(ClientBase client, ResponseContainer container)
         {
-            HtmlDocument doc = document.ResponseHtml.Value;
+            HtmlDocument doc = container.ResponseHtml.Value;
             HtmlNode worldNode = doc.DocumentNode.SelectSingleNode("//div[@id='myWorlds']/div[@id='planetList']/div[starts-with(@id, 'planet-')]/a[contains(@class, 'active')]");
             
             if (worldNode == null)

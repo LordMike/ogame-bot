@@ -8,7 +8,7 @@ using ScraperClientLib.Utilities;
 
 namespace ScraperClientLib.Engine
 {
-    public class ResponseDocument
+    public class ResponseContainer
     {
         public HttpRequestMessage RequestMessage { get; }
 
@@ -26,7 +26,7 @@ namespace ScraperClientLib.Engine
 
         public List<DataObject> ParsedObjects { get; set; }
 
-        public ResponseDocument(HttpRequestMessage requestMessage, HttpResponseMessage responseMessage)
+        public ResponseContainer(HttpRequestMessage requestMessage, HttpResponseMessage responseMessage)
         {
             RequestMessage = requestMessage;
             ResponseMessage = responseMessage;

@@ -45,7 +45,7 @@ namespace ScraperClientLib.Engine
                 _interventionHandlers.Add(handler);
         }
 
-        protected virtual void PostRequest(ResponseDocument response)
+        protected virtual void PostRequest(ResponseContainer response)
         {
 
         }
@@ -81,20 +81,20 @@ namespace ScraperClientLib.Engine
             return req;
         }
 
-        private ResponseDocument IssueRequestInternal(HttpRequestMessage request)
+        private ResponseContainer IssueRequestInternal(HttpRequestMessage request)
         {
             HttpResponseMessage response = _httpClient.SendAsync(request).Sync();
 
-            ResponseDocument result = new ResponseDocument(request, response);
+            ResponseContainer result = new ResponseContainer(request, response);
 
             return result;
         }
 
-        public ResponseDocument IssueRequest(HttpRequestMessage request)
+        public ResponseContainer IssueRequest(HttpRequestMessage request)
         {
             using (EnterExclusive())
             {
-                ResponseDocument result = IssueRequestInternal(request);
+                ResponseContainer result = IssueRequestInternal(request);
 
                 // Check interventions
                 foreach (IInterventionHandler handler in _interventionHandlers)

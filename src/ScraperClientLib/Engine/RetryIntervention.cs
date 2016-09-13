@@ -5,7 +5,7 @@ namespace ScraperClientLib.Engine
     public class RetryIntervention : IInterventionHandler
     {
         private readonly int _retries;
-        private ResponseDocument _lastTask;
+        private ResponseContainer _lastTask;
         private int _currentRetryCount;
 
         public RetryIntervention(int retries = 3)
@@ -13,7 +13,7 @@ namespace ScraperClientLib.Engine
             _retries = retries;
         }
 
-        public bool DoIntervention(ResponseDocument offendingTask)
+        public bool DoIntervention(ResponseContainer offendingTask)
         {
             int statusCode = (int)offendingTask.StatusCode;
 
@@ -28,7 +28,7 @@ namespace ScraperClientLib.Engine
             return false;
         }
 
-        public InterventionResult Handle(ResponseDocument offendingTask)
+        public InterventionResult Handle(ResponseContainer offendingTask)
         {
             if (_lastTask != offendingTask)
             {

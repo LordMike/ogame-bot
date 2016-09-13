@@ -11,26 +11,26 @@ namespace ScraperClientLib.Engine
 
         }
 
-        public bool ShouldProcess(ResponseDocument document)
+        public bool ShouldProcess(ResponseContainer container)
         {
-            if (ProcessOnlySuccesses && !document.WasSuccess)
+            if (ProcessOnlySuccesses && !container.WasSuccess)
                 return false;
 
-            return ShouldProcessInternal(document);
+            return ShouldProcessInternal(container);
         }
 
-        public IEnumerable<DataObject> Process(ClientBase client, ResponseDocument document)
+        public IEnumerable<DataObject> Process(ClientBase client, ResponseContainer container)
         {
             string typeName = GetType().FullName;
-            foreach (DataObject dataObject in ProcessInternal(client, document))
+            foreach (DataObject dataObject in ProcessInternal(client, container))
             {
                 dataObject.ParserType = typeName;
                 yield return dataObject;
             }
         }
 
-        public abstract bool ShouldProcessInternal(ResponseDocument document);
+        public abstract bool ShouldProcessInternal(ResponseContainer container);
 
-        public abstract IEnumerable<DataObject> ProcessInternal(ClientBase client, ResponseDocument document);
+        public abstract IEnumerable<DataObject> ProcessInternal(ClientBase client, ResponseContainer container);
     }
 }

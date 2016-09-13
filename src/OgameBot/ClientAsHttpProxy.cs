@@ -99,7 +99,7 @@ namespace OgameBot
             }
 
             // Issue
-            ResponseDocument resp = _client.IssueRequest(proxyReq);
+            ResponseContainer resp = _client.IssueRequest(proxyReq);
 
             byte[] data = resp.ResponseMessage.Content.ReadAsByteArrayAsync().Sync();
 

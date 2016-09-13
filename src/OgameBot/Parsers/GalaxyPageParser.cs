@@ -18,14 +18,14 @@ namespace OgameBot.Parsers
         private static readonly Regex CssPlayerStatus = new Regex("status_abbr_([a-z]+)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         private static readonly Regex LinkRelRegex = new Regex(@"(?:alliance|player)([\d]+)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
-        public override bool ShouldProcessInternal(ResponseDocument document)
+        public override bool ShouldProcessInternal(ResponseContainer container)
         {
-            return document.RequestMessage.RequestUri.Query.Contains("page=galaxyContent");
+            return container.RequestMessage.RequestUri.Query.Contains("page=galaxyContent");
         }
 
-        public override IEnumerable<DataObject> ProcessInternal(ClientBase client, ResponseDocument document)
+        public override IEnumerable<DataObject> ProcessInternal(ClientBase client, ResponseContainer container)
         {
-            HtmlDocument doc = document.ResponseHtml.Value;
+            HtmlDocument doc = container.ResponseHtml.Value;
             HtmlNode tableNode = doc.DocumentNode.SelectSingleNode("//table[@id='galaxytable']");
             HtmlNodeCollection rows = tableNode?.SelectNodes("./tbody/tr");
 

@@ -14,14 +14,14 @@ namespace OgameBot.Parsers
     {
         private static Regex CssRegex = new Regex(@"(?:military[\d]+|civil[\d]+)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
-        public override bool ShouldProcessInternal(ResponseDocument document)
+        public override bool ShouldProcessInternal(ResponseContainer container)
         {
-            return document.RequestMessage.RequestUri.Query.Contains("page=shipyard");
+            return container.RequestMessage.RequestUri.Query.Contains("page=shipyard");
         }
 
-        public override IEnumerable<DataObject> ProcessInternal(ClientBase client, ResponseDocument document)
+        public override IEnumerable<DataObject> ProcessInternal(ClientBase client, ResponseContainer container)
         {
-            HtmlDocument doc = document.ResponseHtml.Value;
+            HtmlDocument doc = container.ResponseHtml.Value;
             HtmlNodeCollection imageFields = doc.DocumentNode.SelectNodes("//div[@id='buttonz']/div[@class='content']//div[contains(@class, 'military') or contains(@class, 'civil')]");
 
             if (imageFields == null)

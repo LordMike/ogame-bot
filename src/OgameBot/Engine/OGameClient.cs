@@ -38,7 +38,7 @@ namespace OgameBot.Engine
             RegisterIntervention(new OGameAutoLoginner(this));
         }
 
-        protected override void PostRequest(ResponseDocument response)
+        protected override void PostRequest(ResponseContainer response)
         {
             Debug.WriteLine($"Response to {response.RequestMessage.RequestUri}, ({response.ParsedObjects.Count:N0} parsed objects)");
             foreach (DataObject dataObject in response.ParsedObjects)
