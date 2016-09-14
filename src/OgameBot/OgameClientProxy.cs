@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -74,7 +75,7 @@ namespace OgameBot
             {
                 // Asked for root - send the client to the overview page
 
-                ctx.Response.StatusCode = (int) HttpStatusCode.TemporaryRedirect;
+                ctx.Response.StatusCode = (int)HttpStatusCode.TemporaryRedirect;
                 ctx.Response.RedirectLocation = "/game/index.php?page=overview";
 
                 ctx.Response.OutputStream.WriteString("Redirecting to Overview");
@@ -116,6 +117,21 @@ namespace OgameBot
             ResponseContainer resp = _client.IssueRequest(proxyReq);
 
             byte[] data = resp.ResponseMessage.Content.ReadAsByteArrayAsync().Sync();
+
+            foreach (string encoding in resp.ResponseMessage.Content.Headers.ContentEncoding)
+            {
+                if (encoding == "gzip")
+                {
+                    using (var ms = new MemoryStream(data))
+                    using (var gzip = new GZipStream(ms, CompressionMode.Decompress))
+                    using (var msTarget = new MemoryStream())
+                    {
+                        gzip.CopyTo(msTarget);
+
+                        data = msTarget.ToArray();
+                    }
+                }
+            }
 
             // Rewrite html/js
             if (resp.IsHtmlResponse || resp.ResponseMessage.Content.Headers.ContentType.MediaType == "application/x-javascript")

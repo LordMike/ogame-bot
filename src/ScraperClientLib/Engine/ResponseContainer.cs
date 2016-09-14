@@ -15,14 +15,14 @@ namespace ScraperClientLib.Engine
         public HttpResponseMessage ResponseMessage { get; }
 
         public Lazy<HtmlDocument> ResponseHtml { get; }
-        
-        
+
+
         public HttpStatusCode StatusCode => ResponseMessage.StatusCode;
 
         public bool WasSuccess => ResponseMessage.IsSuccessStatusCode;
 
         public bool IsHtmlResponse => ResponseHtml.Value != null;
-        
+
 
         public List<DataObject> ParsedObjects { get; set; }
 
@@ -32,7 +32,7 @@ namespace ScraperClientLib.Engine
             ResponseMessage = responseMessage;
 
             ParsedObjects = new List<DataObject>();
-            
+
             ResponseHtml = new Lazy<HtmlDocument>(() =>
             {
                 if (ResponseMessage.Content.Headers.ContentType.MediaType != "text/html")
@@ -41,8 +41,8 @@ namespace ScraperClientLib.Engine
                     return null;
                 }
 
-                Stream contentStream = ResponseMessage.Content.ReadAsStreamAsync().Sync();
-
+                Stream contentStream = ResponseMessage.Content.ReadAsStream2Async().Sync();
+                
                 HtmlDocument doc = new HtmlDocument();
                 doc.Load(contentStream);
 

@@ -34,6 +34,8 @@ namespace OgameBot.Engine
             RegisterParser(new ResearchPageParser());
             RegisterParser(new ResourcesPageParser());
             RegisterParser(new ShipyardPageParser());
+            RegisterParser(new MessagesPageParser());
+            RegisterParser(new EspionageDetailsParser());
 
             RegisterIntervention(new OGameAutoLoginner(this));
         }

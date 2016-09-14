@@ -14,7 +14,7 @@ namespace OgameBot
 
             // Setup
             OGameStringProvider stringProvider = OGameStringProvider.Load("strings-en.json");
-            
+
             //stringProvider.SetLocalizedName(ResourceType.Metal, "Metal");
             //stringProvider.SetLocalizedName(ResourceType.Crystal, "Crystal");
             //stringProvider.SetLocalizedName(ResourceType.Deuterium, "Deuterium");
@@ -27,6 +27,7 @@ namespace OgameBot
 
             // Processing
             OGameClient client = new OGameClient(server, stringProvider, user, pass);
+            client.ServerUtcOffset = TimeSpan.FromHours(1);
             client.ServerCulture = clientServerCulture;
 
             OgameClientProxy xx = new OgameClientProxy("127.0.0.1", 9400, client);
