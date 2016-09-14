@@ -10,7 +10,7 @@ using ScraperClientLib.Utilities;
 
 namespace OgameBot
 {
-    public class ClientAsHttpProxy
+    public class OgameClientProxy
     {
         private readonly string _listenHost;
         private readonly int _listenPort;
@@ -20,7 +20,7 @@ namespace OgameBot
 
         public Uri SubstituteRoot { get; set; }
 
-        public ClientAsHttpProxy(string listenHost, int listenPort, ClientBase client)
+        public OgameClientProxy(string listenHost, int listenPort, ClientBase client)
         {
             _listenHost = listenHost;
             _listenPort = listenPort;
@@ -67,6 +67,20 @@ namespace OgameBot
             {
                 ctx.Response.StatusCode = (int)HttpStatusCode.MethodNotAllowed;
                 ctx.Response.OutputStream.WriteString($"Unsupported method: {requestedMethod}");
+                return;
+            }
+
+            if (ctx.Request.Url.PathAndQuery == "/")
+            {
+                // Asked for root - send the client to the overview page
+
+                ctx.Response.StatusCode = (int) HttpStatusCode.TemporaryRedirect;
+                ctx.Response.RedirectLocation = "/game/index.php?page=overview";
+
+                ctx.Response.OutputStream.WriteString("Redirecting to Overview");
+
+                // Return
+                ctx.Response.Close();
                 return;
             }
 

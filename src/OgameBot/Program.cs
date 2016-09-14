@@ -29,7 +29,7 @@ namespace OgameBot
             OGameClient client = new OGameClient(server, stringProvider, user, pass);
             client.ServerCulture = clientServerCulture;
 
-            ClientAsHttpProxy xx = new ClientAsHttpProxy("127.0.0.1", 9400, client);
+            OgameClientProxy xx = new OgameClientProxy("127.0.0.1", 9400, client);
             xx.SubstituteRoot = new Uri($"https://{server}");
             xx.Start();
 
