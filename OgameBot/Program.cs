@@ -50,7 +50,7 @@ namespace OgameBot
             client.PerformLogin();
 
             // Preparing
-            ScannerJob job = new ScannerJob(client, new SystemCoordinate(6, 10), new SystemCoordinate(6, 5));
+            ScannerJob job = new ScannerJob(client, new SystemCoordinate(6, 60), new SystemCoordinate(6, 100));
             job.Start();
 
             // Work
