@@ -60,7 +60,7 @@ namespace OgameBot.Tasks
                     }
 
                     // Scan
-                    _client.IssueRequest()
+                    //_client.IssueRequest()
 
                     // Save to db
                     using (BotDb db = new BotDb())
