@@ -7,5 +7,7 @@ namespace OgameBot.Db
         public DbSet<GalaxyScan> Scans { get; set; }
 
         public DbSet<GalaxyItem> GalaxyItems { get; set; }
+
+        public DbSet<DebrisField> DebrisFields { get; set; }
     }
 }

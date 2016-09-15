@@ -1,7 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using OgameBot.Db.Parts;
 using OgameBot.Objects;
+using OgameBot.Utilities;
 
 namespace OgameBot.Db
 {

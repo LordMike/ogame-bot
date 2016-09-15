@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using OgameBot.Objects;
 
-namespace OgameBot.Db
+namespace OgameBot.Db.Parts
 {
     [ComplexType]
     public class DbResources

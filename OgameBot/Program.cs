@@ -37,6 +37,7 @@ namespace OgameBot
 
             client.RegisterSaver(new GalaxyPageSaver());
             client.RegisterSaver(new EspionageReportSaver());
+            client.RegisterSaver(new GalaxyPageDebrisSaver());
 
             OgameClientProxy xx = new OgameClientProxy("127.0.0.1", 9400, client);
             xx.SubstituteRoot = new Uri($"https://{server}");

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using OgameBot.Objects.Types;
 
-namespace OgameBot.Db
+namespace OgameBot.Db.Parts
 {
     public class PlanetInfo
     {

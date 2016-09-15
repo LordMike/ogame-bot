@@ -2,7 +2,7 @@
 using System.Text;
 using Newtonsoft.Json;
 
-namespace OgameBot.Db
+namespace OgameBot.Utilities
 {
     public static class SerializerHelper
     {

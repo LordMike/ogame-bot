@@ -61,8 +61,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\CommandBase.cs" />
+    <Compile Include="Db\DebrisField.cs" />
     <Compile Include="Savers\DbSaverBase.cs" />
     <Compile Include="Savers\EspionageReportSaver.cs" />
+    <Compile Include="Savers\GalaxyPageDebrisSaver.cs" />
     <Compile Include="Savers\GalaxyPageSaver.cs" />
     <Compile Include="Parsers\GalaxyPageInfoItem.cs" />
     <Compile Include="Parsers\GalaxyPageInfoPartItem.cs" />
@@ -71,11 +73,11 @@
     <Compile Include="Utilities\KeyValuePair.cs" />
     <Compile Include="Commands\ScanGalaxyCommand.cs" />
     <Compile Include="Db\BotDb.cs" />
-    <Compile Include="Db\DbResources.cs" />
+    <Compile Include="Db\Parts\DbResources.cs" />
     <Compile Include="Db\GalaxyItem.cs" />
     <Compile Include="Db\GalaxyScan.cs" />
-    <Compile Include="Db\PlanetInfo.cs" />
-    <Compile Include="Db\SerializerHelper.cs" />
+    <Compile Include="Db\Parts\PlanetInfo.cs" />
+    <Compile Include="Utilities\SerializerHelper.cs" />
     <Compile Include="Engine\OGameAutoLoginner.cs" />
     <Compile Include="Engine\OGameClient.cs" />
     <Compile Include="Engine\OGameDataProvider.cs" />
