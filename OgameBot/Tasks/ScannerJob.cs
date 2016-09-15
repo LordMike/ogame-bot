@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using OgameBot.Commands;
 using OgameBot.Db;
 using OgameBot.Engine;
 using OgameBot.Objects;
@@ -9,7 +10,7 @@ namespace OgameBot.Tasks
 {
     public class ScannerJob : TaskBase
     {
-        private static TimeSpan _rescanInterval = TimeSpan.FromHours(8);
+        private static readonly TimeSpan RescanInterval = TimeSpan.FromHours(8);
 
         private readonly OGameClient _client;
         private readonly SystemCoordinate _from;
@@ -54,28 +55,14 @@ namespace OgameBot.Tasks
                     GalaxyScan exists;
                     if (existing.TryGetValue(coord, out exists))
                     {
-                        if (DateTimeOffset.Now - exists.LastScan < _rescanInterval)
+                        if (DateTimeOffset.Now - exists.LastScan < RescanInterval)
                             // Ignore
                             continue;
                     }
 
                     // Scan
-                    //_client.IssueRequest()
-
-                    // Save to db
-                    using (BotDb db = new BotDb())
-                    {
-                        if (exists == null)
-                        {
-                            exists = new GalaxyScan();
-                            db.Scans.Add(exists);
-                        }
-                        else
-                            db.Scans.Attach(exists);
-
-                        exists.LastScan = DateTimeOffset.Now;
-                        db.SaveChanges();
-                    }
+                    ScanGalaxyCommand cmd = new ScanGalaxyCommand(_client, coord);
+                    cmd.Run();
                 }
             }
         }

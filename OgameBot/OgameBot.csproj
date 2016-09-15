@@ -61,6 +61,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\CommandBase.cs" />
+    <Compile Include="Savers\DbSaverBase.cs" />
+    <Compile Include="Savers\EspionageReportSaver.cs" />
+    <Compile Include="Savers\GalaxyPageSaver.cs" />
+    <Compile Include="Parsers\GalaxyPageInfoItem.cs" />
+    <Compile Include="Parsers\GalaxyPageInfoPartItem.cs" />
+    <Compile Include="Parsers\GalaxyPageSystem.cs" />
+    <Compile Include="Parsers\PlayerStatus.cs" />
+    <Compile Include="Utilities\KeyValuePair.cs" />
     <Compile Include="Commands\ScanGalaxyCommand.cs" />
     <Compile Include="Db\BotDb.cs" />
     <Compile Include="Db\DbResources.cs" />

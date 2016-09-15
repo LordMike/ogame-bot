@@ -16,6 +16,8 @@ namespace ScraperClientLib.Engine
         private readonly List<IInterventionHandler> _interventionHandlers;
         private readonly Dictionary<string, string> _defaultHeaders;
 
+        public Uri BaseUri { get { return _httpClient.BaseAddress; } set { _httpClient.BaseAddress = value; } }
+
         public CultureInfo ServerCulture { get; set; }
 
         protected ClientBase()

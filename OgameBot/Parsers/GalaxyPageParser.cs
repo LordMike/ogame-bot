@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using OgameBot.Objects;
@@ -226,86 +224,5 @@ namespace OgameBot.Parsers
 
             yield return systemResult;
         }
-    }
-
-    [Flags]
-    public enum PlayerStatus
-    {
-        None = 0,
-        Noob = 1 << 0,
-        Vacation = 1 << 1,
-        Strong = 1 << 2,
-        Banned = 1 << 3,
-        Active = 1 << 4,
-        Inactive = 1 << 5,
-        LongInactive = 1 << 6,
-        Outlaw = 1 << 7,
-        HonorableTarget = 1 << 8,
-        AllyOwn = 1 << 9,
-        AllyWar = 1 << 10,
-        Buddy = 1 << 11,
-        Admin = 1 << 12
-    }
-
-    public class GalaxyPageSystem : DataObject
-    {
-        public SystemCoordinate System { get; set; }
-
-        public List<Coordinate> PresentItems { get; set; }
-
-        public List<Coordinate> AbsentItems { get; set; }
-
-        public GalaxyPageSystem()
-        {
-            PresentItems = new List<Coordinate>();
-            AbsentItems = new List<Coordinate>();
-        }
-
-        public override string ToString()
-        {
-            return $"{System}. Coordinates: {PresentItems.Count + AbsentItems.Count:N0}, present: {PresentItems.Count:N0}, absent: {AbsentItems.Count:N0}";
-        }
-    }
-
-    public class GalaxyPageInfoItem : DataObject
-    {
-        public GalaxyPageInfoPartItem Planet { get; set; }
-
-        public GalaxyPageInfoPartItem Moon { get; set; }
-
-        public Resources DebrisField { get; set; }
-
-        public string PlayerName { get; set; }
-
-        public int PlayerId { get; set; }
-
-        public PlayerStatus PlayerStatus { get; set; }
-
-        public string AllyName { get; set; }
-
-        public int AllyId { get; set; }
-
-        public override string ToString()
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.Append($"{Planet.Coordinate} ({Planet.Id}: {Planet.Name}), player ({PlayerId}) {PlayerName}");
-
-            if (DebrisField.Total > 0)
-                sb.Append($"-- DM: {DebrisField.Metal:N0}, DC: {DebrisField.Crystal:N0}");
-
-            if (Moon != null)
-                sb.Append(" -- W/MOON");
-
-            return sb.ToString();
-        }
-    }
-
-    public class GalaxyPageInfoPartItem
-    {
-        public Coordinate Coordinate { get; set; }
-
-        public string Name { get; set; }
-
-        public int Id { get; set; }
     }
 }

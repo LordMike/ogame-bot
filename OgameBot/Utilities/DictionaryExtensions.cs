@@ -10,7 +10,7 @@ namespace OgameBot.Utilities
             TVal val;
             if (dict.TryGetValue(key, out val))
                 return dict[key] = updateFunc(key, val);
-            
+
             return dict[key] = addFunc();
         }
 
@@ -23,6 +23,17 @@ namespace OgameBot.Utilities
             val = addFunc();
             dict.Add(key, val);
             return val;
+        }
+
+        public static bool TryRemove<TKey, TVal>(this Dictionary<TKey, TVal> dict, TKey key, out TVal value)
+        {
+            if (dict.TryGetValue(key, out value))
+            {
+                dict.Remove(key);
+                return true;
+            }
+
+            return false;
         }
     }
 }

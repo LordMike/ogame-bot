@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Timers;
 
 namespace OgameBot.Tasks
@@ -47,13 +48,8 @@ namespace OgameBot.Tasks
 
         public void Start()
         {
-            _timer.Stop();
-
             _isRunning = true;
-
-            // Restart timer
-            _timer.Interval = ExecutionInterval.TotalMilliseconds;
-            _timer.Start();
+            Task.Factory.StartNew(() => TimerOnElapsed(null, null));
         }
 
         public void Stop()

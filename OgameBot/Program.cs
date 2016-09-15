@@ -2,6 +2,7 @@
 using System.Globalization;
 using OgameBot.Engine;
 using OgameBot.Objects;
+using OgameBot.Savers;
 using OgameBot.Tasks;
 
 namespace OgameBot
@@ -34,6 +35,9 @@ namespace OgameBot
             client.Settings.Systems = 499;
             client.ServerCulture = clientServerCulture;
 
+            client.RegisterSaver(new GalaxyPageSaver());
+            client.RegisterSaver(new EspionageReportSaver());
+
             OgameClientProxy xx = new OgameClientProxy("127.0.0.1", 9400, client);
             xx.SubstituteRoot = new Uri($"https://{server}");
             xx.Start();
@@ -46,6 +50,7 @@ namespace OgameBot
 
             // Preparing
             ScannerJob job = new ScannerJob(client, new SystemCoordinate(6, 10), new SystemCoordinate(6, 5));
+            job.Start();
 
             // Work
             Console.ReadLine();

@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Data.Entity;
 using System.Diagnostics;
 using System.Net.Http;
+using OgameBot.Objects;
 using OgameBot.Parsers;
+using OgameBot.Savers;
 using ScraperClientLib.Engine;
 
 namespace OgameBot.Engine
@@ -15,6 +19,8 @@ namespace OgameBot.Engine
         private readonly string _username;
         private readonly string _password;
 
+        private List<DbSaverBase> _savers;
+
         public OGameStringProvider StringProvider { get; }
 
         public OGameSettings Settings { get; }
@@ -25,7 +31,10 @@ namespace OgameBot.Engine
             _username = username;
             _password = password;
 
+            _savers = new List<DbSaverBase>();
+
             StringProvider = stringProvider;
+            BaseUri = new Uri($"https://{server}/");
 
             Settings = new OGameSettings();
 
@@ -44,12 +53,24 @@ namespace OgameBot.Engine
             RegisterIntervention(new OGameAutoLoginner(this));
         }
 
+        public void RegisterSaver(DbSaverBase saver)
+        {
+            using (EnterExclusive())
+                _savers.Add(saver);
+        }
+
         protected override void PostRequest(ResponseContainer response)
         {
             Debug.WriteLine($"Response to {response.RequestMessage.RequestUri}, ({response.ParsedObjects.Count:N0} parsed objects)");
             foreach (DataObject dataObject in response.ParsedObjects)
             {
                 Debug.WriteLine($"Parsed object by {dataObject.ParserType}: {dataObject}");
+            }
+
+            // Save to DB
+            foreach (DbSaverBase saver in _savers)
+            {
+                saver.Run(response.ParsedObjects);
             }
         }
 

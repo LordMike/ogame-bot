@@ -9,7 +9,12 @@ namespace OgameBot.Db
     {
         private PlanetInfo _planetInfo;
 
-        [Key]
+        public GalaxyItem()
+        {
+            Resources = new DbResources();
+        }
+
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long LocationId { get; set; }
 
         public Coordinate Coordinate
@@ -17,7 +22,7 @@ namespace OgameBot.Db
             get { return CoordHelper.GetCoordinate(LocationId); }
             set { LocationId = CoordHelper.ToNumber(value); }
         }
-        
+
         /// <summary>
         /// Internal. Don't touch this
         /// </summary>
@@ -50,9 +55,19 @@ namespace OgameBot.Db
 
         public DateTimeOffset LastDefencesTime { get; set; }
 
+        [MaxLength(255)]
+        public string Name { get; set; }
+
+        public int PlayerId { get; set; }
+
         public void Update()
         {
             PlanetInfoData = SerializerHelper.SerializeToBytes(PlanetInfo);
+        }
+
+        public override string ToString()
+        {
+            return $"GalaxyItem {Coordinate}, id: {LocationId}";
         }
     }
 }

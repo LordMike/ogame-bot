@@ -42,6 +42,10 @@
 
         public int Id => this;
 
+        public long LowerCoordinate => (long)Id << 16;
+
+        public long UpperCoordinate => LowerCoordinate | 0xFFFF;
+
         public static implicit operator int(SystemCoordinate coord)
         {
             return CoordHelper.ToNumber(coord);
@@ -49,7 +53,7 @@
 
         public static implicit operator SystemCoordinate(int id)
         {
-            return CoordHelper.GetCoordinate(id);
+            return CoordHelper.GetSysCoordinate(id);
         }
 
         public static implicit operator SystemCoordinate(Coordinate coord)

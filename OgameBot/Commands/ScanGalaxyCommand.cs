@@ -1,5 +1,8 @@
-﻿using OgameBot.Engine;
+﻿using System;
+using System.Net.Http;
+using OgameBot.Engine;
 using OgameBot.Objects;
+using OgameBot.Utilities;
 
 namespace OgameBot.Commands
 {
@@ -15,7 +18,13 @@ namespace OgameBot.Commands
 
         public override void Run()
         {
-            //Client.BuildPost()
+            HttpRequestMessage req = Client.BuildPost(new Uri("/game/index.php?page=galaxyContent&ajax=1", UriKind.Relative), new[]
+            {
+                KeyValuePair.Create("galaxy", _coordinate.Galaxy.ToString()),
+                KeyValuePair.Create("system", _coordinate.System.ToString())
+            });
+
+            AssistedIssue(req);
         }
     }
 }
