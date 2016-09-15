@@ -1,17 +1,20 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using OgameBot.Objects;
 
 namespace OgameBot.Db
 {
     public class GalaxyScan
     {
-        [Key, Column(Order = 0)]
-        public byte Galaxy { get; set; }
+        [Key]
+        public int LocationId { get; set; }
 
-        [Key, Column(Order = 1)]
-        public short System { get; set; }
+        public SystemCoordinate SystemCoordinate
+        {
+            get { return CoordHelper.GetCoordinate(LocationId); }
+            set { LocationId = CoordHelper.ToNumber(value); }
+        }
 
-        public DateTime LastScan { get; set; }
+        public DateTimeOffset LastScan { get; set; }
     }
 }

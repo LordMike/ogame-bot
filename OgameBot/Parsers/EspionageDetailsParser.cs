@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
+using OgameBot.Engine;
 using OgameBot.Objects;
 using OgameBot.Objects.Types;
 using OgameBot.Utilities;
@@ -31,18 +32,20 @@ namespace OgameBot.Parsers
             if (message == null)
                 yield break;
 
+            OGameClient oClient = (OGameClient)client;
+
             // Message info
             int messageId = message.GetAttributeValue("data-msg-id", 0);
             MessageTabType tabType = MessageTabType.FleetsEspionage;
 
             string dateText = message.SelectSingleNode(".//span[contains(@class, 'msg_date')]").InnerText;
-            DateTime date = DateTime.ParseExact(dateText, "dd.MM.yyyy HH:mm:ss", client.ServerCulture, DateTimeStyles.AssumeUniversal).ToUniversalTime();
+            DateTime date = DateTime.ParseExact(dateText, "dd.MM.yyyy HH:mm:ss", oClient.ServerCulture, DateTimeStyles.AssumeUniversal).ToUniversalTime();
 
             EspionageReport result = new EspionageReport
             {
                 MessageId = messageId,
                 TabType = tabType,
-                Sent = new DateTimeOffset(date).Add(-client.ServerUtcOffset).ToOffset(client.ServerUtcOffset)
+                Sent = new DateTimeOffset(date).Add(-oClient.Settings.ServerUtcOffset).ToOffset(oClient.Settings.ServerUtcOffset)
             };
 
             // Establish location
@@ -63,7 +66,7 @@ namespace OgameBot.Parsers
                 HtmlNodeCollection values = details.SelectNodes(".//span[@class='res_value']");
                 Debug.Assert(values.Count == 4);
 
-                var oneThousandAdd = client.ServerCulture.NumberFormat.NumberGroupSeparator + "000";
+                var oneThousandAdd = oClient.ServerCulture.NumberFormat.NumberGroupSeparator + "000";
 
                 string[] vals = values.Select(s => s.InnerText
                     .Replace("M", oneThousandAdd)
@@ -71,10 +74,10 @@ namespace OgameBot.Parsers
 
                 Resources resources = new Resources
                 {
-                    Metal = int.Parse(vals[0], NumberStyles.AllowThousands | NumberStyles.Integer, client.ServerCulture),
-                    Crystal = int.Parse(vals[1], NumberStyles.AllowThousands | NumberStyles.Integer, client.ServerCulture),
-                    Deuterium = int.Parse(vals[2], NumberStyles.AllowThousands | NumberStyles.Integer, client.ServerCulture),
-                    Energy = int.Parse(vals[3], NumberStyles.AllowThousands | NumberStyles.Integer, client.ServerCulture)
+                    Metal = int.Parse(vals[0], NumberStyles.AllowThousands | NumberStyles.Integer, oClient.ServerCulture),
+                    Crystal = int.Parse(vals[1], NumberStyles.AllowThousands | NumberStyles.Integer, oClient.ServerCulture),
+                    Deuterium = int.Parse(vals[2], NumberStyles.AllowThousands | NumberStyles.Integer, oClient.ServerCulture),
+                    Energy = int.Parse(vals[3], NumberStyles.AllowThousands | NumberStyles.Integer, oClient.ServerCulture)
                 };
 
                 result.Resources = resources;
@@ -84,28 +87,28 @@ namespace OgameBot.Parsers
             // Parts - Ships
             if (partsNodes.TryGetValue("ships", out details))
             {
-                result.DetectedShips = ParseList<ShipType>(client, details);
+                result.DetectedShips = ParseList<ShipType>(oClient, details);
                 result.Details |= ReportDetails.Ships;
             }
 
             // Parts - Defense
             if (partsNodes.TryGetValue("defense", out details))
             {
-                result.DetectedDefence = ParseList<DefenceType>(client, details);
+                result.DetectedDefence = ParseList<DefenceType>(oClient, details);
                 result.Details |= ReportDetails.Defense;
             }
 
             // Parts - Buildings
             if (partsNodes.TryGetValue("buildings", out details))
             {
-                result.DetectedBuildings = ParseList<BuildingType>(client, details);
+                result.DetectedBuildings = ParseList<BuildingType>(oClient, details);
                 result.Details |= ReportDetails.Buildings;
             }
 
             // Parts - Research
             if (partsNodes.TryGetValue("research", out details))
             {
-                result.DetectedResearch = ParseList<ResearchType>(client, details);
+                result.DetectedResearch = ParseList<ResearchType>(oClient, details);
                 result.Details |= ReportDetails.Research;
             }
 

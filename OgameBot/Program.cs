@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Globalization;
 using OgameBot.Engine;
+using OgameBot.Objects;
+using OgameBot.Tasks;
 
 namespace OgameBot
 {
@@ -27,7 +29,9 @@ namespace OgameBot
 
             // Processing
             OGameClient client = new OGameClient(server, stringProvider, user, pass);
-            client.ServerUtcOffset = TimeSpan.FromHours(1);
+            client.Settings.ServerUtcOffset = TimeSpan.FromHours(1);
+            client.Settings.Galaxies = 8;
+            client.Settings.Systems = 499;
             client.ServerCulture = clientServerCulture;
 
             OgameClientProxy xx = new OgameClientProxy("127.0.0.1", 9400, client);
@@ -40,6 +44,10 @@ namespace OgameBot
 
             client.PerformLogin();
 
+            // Preparing
+            ScannerJob job = new ScannerJob(client, new SystemCoordinate(6, 10), new SystemCoordinate(6, 5));
+
+            // Work
             Console.ReadLine();
         }
     }

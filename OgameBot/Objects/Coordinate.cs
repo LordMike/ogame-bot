@@ -27,32 +27,27 @@ namespace OgameBot.Objects
 
         public static Coordinate Create(Coordinate baseCoordinate, CoordinateType type)
         {
-            return Create(baseCoordinate.Galaxy, baseCoordinate.System, baseCoordinate.Planet, type);
+            return new Coordinate(baseCoordinate.Galaxy, baseCoordinate.System, baseCoordinate.Planet, type);
         }
 
         public static Coordinate Create(SystemCoordinate baseCoordinate, byte planet, CoordinateType type)
         {
-            return Create(baseCoordinate.Galaxy, baseCoordinate.System, planet, type);
+            return new Coordinate(baseCoordinate.Galaxy, baseCoordinate.System, planet, type);
         }
 
         public static Coordinate Create(Coordinate baseCoordinate, byte planet, CoordinateType type)
         {
-            return Create(baseCoordinate.Galaxy, baseCoordinate.System, planet, type);
+            return new Coordinate(baseCoordinate.Galaxy, baseCoordinate.System, planet, type);
         }
 
         public static Coordinate Create(SystemCoordinate baseCoordinate, short system, byte planet, CoordinateType type)
         {
-            return Create(baseCoordinate.Galaxy, system, planet, type);
+            return new Coordinate(baseCoordinate.Galaxy, system, planet, type);
         }
 
         public static Coordinate Create(Coordinate baseCoordinate, short system, byte planet, CoordinateType type)
         {
-            return Create(baseCoordinate.Galaxy, system, planet, type);
-        }
-
-        public static Coordinate Create(byte galaxy, short system, byte planet, CoordinateType type)
-        {
-            return new Coordinate(galaxy, system, planet, type);
+            return new Coordinate(baseCoordinate.Galaxy, system, planet, type);
         }
 
         public static Coordinate Parse(string input, CoordinateType type)
@@ -106,6 +101,38 @@ namespace OgameBot.Objects
             return obj is Coordinate && Equals((Coordinate)obj);
         }
 
+        public long Id => this;
+
+        public static implicit operator long(Coordinate coord)
+        {
+            return CoordHelper.ToNumber(coord);
+        }
+
+        public static implicit operator Coordinate(long id)
+        {
+            return CoordHelper.GetCoordinate(id);
+        }
+
+        public static bool operator <(Coordinate left, Coordinate right)
+        {
+            return Compare(left, right) < 0;
+        }
+
+        public static bool operator >(Coordinate left, Coordinate right)
+        {
+            return Compare(left, right) > 0;
+        }
+
+        public static bool operator >=(Coordinate left, Coordinate right)
+        {
+            return Compare(left, right) >= 0;
+        }
+
+        public static bool operator <=(Coordinate left, Coordinate right)
+        {
+            return Compare(left, right) <= 0;
+        }
+
         public static bool operator ==(Coordinate left, Coordinate right)
         {
             return left.Equals(right);
@@ -116,7 +143,7 @@ namespace OgameBot.Objects
             return !left.Equals(right);
         }
 
-        public int Compare(Coordinate x, Coordinate y)
+        public static int Compare(Coordinate x, Coordinate y)
         {
             if (x.Galaxy != y.Galaxy)
                 return x.Galaxy.CompareTo(y.Galaxy);
@@ -128,6 +155,11 @@ namespace OgameBot.Objects
                 return x.Planet.CompareTo(y.Planet);
 
             return x.Type.CompareTo(y.Type);
+        }
+
+        int IComparer<Coordinate>.Compare(Coordinate x, Coordinate y)
+        {
+            return Compare(x, y);
         }
 
         public override string ToString()

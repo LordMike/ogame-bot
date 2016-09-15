@@ -60,6 +60,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\CommandBase.cs" />
+    <Compile Include="Commands\ScanGalaxyCommand.cs" />
     <Compile Include="Db\BotDb.cs" />
     <Compile Include="Db\DbResources.cs" />
     <Compile Include="Db\GalaxyItem.cs" />
@@ -69,7 +71,10 @@
     <Compile Include="Engine\OGameAutoLoginner.cs" />
     <Compile Include="Engine\OGameClient.cs" />
     <Compile Include="Engine\OGameDataProvider.cs" />
+    <Compile Include="Engine\OGameSettings.cs" />
     <Compile Include="Engine\OGameStringProvider.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Objects\CoordHelper.cs" />
     <Compile Include="Objects\Coordinate.cs" />
     <Compile Include="Objects\FleetComposition.cs" />
     <Compile Include="Objects\MessageTabType.cs" />
@@ -111,6 +116,8 @@
     <Compile Include="Parsers\ShipyardPageParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tasks\ScannerJob.cs" />
+    <Compile Include="Tasks\TaskBase.cs" />
     <Compile Include="Utilities\DictionaryExtensions.cs" />
     <Compile Include="Utilities\HtmlNodeExtensions.cs" />
   </ItemGroup>

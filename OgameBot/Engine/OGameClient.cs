@@ -17,6 +17,8 @@ namespace OgameBot.Engine
 
         public OGameStringProvider StringProvider { get; }
 
+        public OGameSettings Settings { get; }
+
         public OGameClient(string server, OGameStringProvider stringProvider, string username, string password)
         {
             _server = server;
@@ -24,6 +26,8 @@ namespace OgameBot.Engine
             _password = password;
 
             StringProvider = stringProvider;
+
+            Settings = new OGameSettings();
 
             RegisterParser(new DefencesPageParser());
             RegisterParser(new FacilitiesPageParser());

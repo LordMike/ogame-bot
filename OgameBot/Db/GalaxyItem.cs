@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using OgameBot.Objects.Types;
+using OgameBot.Objects;
 
 namespace OgameBot.Db
 {
@@ -9,18 +9,15 @@ namespace OgameBot.Db
     {
         private PlanetInfo _planetInfo;
 
-        [Key, Column(Order = 0)]
-        public byte Galaxy { get; set; }
+        [Key]
+        public long LocationId { get; set; }
 
-        [Key, Column(Order = 1)]
-        public short System { get; set; }
-
-        [Key, Column(Order = 2)]
-        public byte Planet { get; set; }
-
-        [Key, Column(Order = 3)]
-        public CoordinateType Type { get; set; }
-
+        public Coordinate Coordinate
+        {
+            get { return CoordHelper.GetCoordinate(LocationId); }
+            set { LocationId = CoordHelper.ToNumber(value); }
+        }
+        
         /// <summary>
         /// Internal. Don't touch this
         /// </summary>

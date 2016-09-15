@@ -18,8 +18,6 @@ namespace ScraperClientLib.Engine
 
         public CultureInfo ServerCulture { get; set; }
 
-        public TimeSpan ServerUtcOffset { get; set; }
-
         protected ClientBase()
         {
             _httpClient = new HttpClient();
