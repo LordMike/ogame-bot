@@ -13,7 +13,7 @@ namespace OgameBot
             const string server = "s117-en.ogame.gameforge.com";
 
             // Setup
-            OGameStringProvider stringProvider = OGameStringProvider.Load("strings-en.json");
+            OGameStringProvider stringProvider = OGameStringProvider.Load(@"Resources\strings-en.json");
 
             //stringProvider.SetLocalizedName(ResourceType.Metal, "Metal");
             //stringProvider.SetLocalizedName(ResourceType.Crystal, "Crystal");
@@ -35,10 +35,8 @@ namespace OgameBot
             xx.Start();
 
             client.RegisterDefaultHeader("Accept-Language", "en-GB,en;q=0.8,da;q=0.6");
-            client.RegisterDefaultHeader("Accept",
-                "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
-            client.RegisterDefaultHeader("User-Agent",
-                "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36");
+            client.RegisterDefaultHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
+            client.RegisterDefaultHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36");
 
             client.PerformLogin();
 

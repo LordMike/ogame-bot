@@ -3,16 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C45BFCF2-4CAB-4342-AB70-EF11E01496A5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OgameBot", "OgameBot\OgameBot.csproj", "{55241673-070A-4504-8350-73B1A47CE2A2}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{61CF2BD4-CB1C-450C-882B-6F785BA82C4F}"
-	ProjectSection(SolutionItems) = preProject
-		global.json = global.json
-	EndProjectSection
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "OgameBot", "src\OgameBot\OgameBot.xproj", "{AF19A414-13D8-4A89-9EDE-7E18BB59D879}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ScraperClientLib", "src\ScraperClientLib\ScraperClientLib.xproj", "{5089326A-C350-4A0B-A756-4D1B22630BB5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScraperClientLib", "ScraperClientLib\ScraperClientLib.csproj", "{B19BAE44-7FC4-45CE-B42D-867237E2D47E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,20 +13,16 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{AF19A414-13D8-4A89-9EDE-7E18BB59D879}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AF19A414-13D8-4A89-9EDE-7E18BB59D879}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AF19A414-13D8-4A89-9EDE-7E18BB59D879}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AF19A414-13D8-4A89-9EDE-7E18BB59D879}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5089326A-C350-4A0B-A756-4D1B22630BB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5089326A-C350-4A0B-A756-4D1B22630BB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5089326A-C350-4A0B-A756-4D1B22630BB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5089326A-C350-4A0B-A756-4D1B22630BB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55241673-070A-4504-8350-73B1A47CE2A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55241673-070A-4504-8350-73B1A47CE2A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55241673-070A-4504-8350-73B1A47CE2A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55241673-070A-4504-8350-73B1A47CE2A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B19BAE44-7FC4-45CE-B42D-867237E2D47E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B19BAE44-7FC4-45CE-B42D-867237E2D47E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B19BAE44-7FC4-45CE-B42D-867237E2D47E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B19BAE44-7FC4-45CE-B42D-867237E2D47E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{AF19A414-13D8-4A89-9EDE-7E18BB59D879} = {C45BFCF2-4CAB-4342-AB70-EF11E01496A5}
-		{5089326A-C350-4A0B-A756-4D1B22630BB5} = {C45BFCF2-4CAB-4342-AB70-EF11E01496A5}
 	EndGlobalSection
 EndGlobal

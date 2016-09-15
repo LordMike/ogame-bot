@@ -1,6 +1,6 @@
 ﻿namespace OgameBot.Objects.Types
 {
-    public enum CoordinateType
+    public enum CoordinateType : byte
     {
         Unknown,
         Planet,

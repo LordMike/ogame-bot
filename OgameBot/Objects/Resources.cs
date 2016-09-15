@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using OgameBot.Objects.Types;
 
 namespace OgameBot.Objects
