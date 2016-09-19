@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Data.Entity;
 using System.Diagnostics;
 using System.Net.Http;
 using OgameBot.Engine.Interventions;
 using OgameBot.Engine.Parsing;
 using OgameBot.Engine.Savers;
-using OgameBot.Objects;
 using ScraperClientLib.Engine;
 using ScraperClientLib.Engine.Parsing;
 
