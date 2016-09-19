@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Globalization;
+using System.IO;
+using Newtonsoft.Json;
 using OgameBot.Engine;
 using OgameBot.Objects;
 using OgameBot.Savers;
@@ -11,25 +13,21 @@ namespace OgameBot
     {
         public static void Main(string[] args)
         {
-            const string user = "Rockadingong";
-            const string pass = "l0j7eZQjeueuQuvTHWtg";
-            const string server = "s117-en.ogame.gameforge.com";
+            if (!File.Exists("config.json"))
+            {
+                Console.WriteLine("Please copy config.template.json to config.json and fill it out");
+                return;
+            }
+
+            Config config = JsonConvert.DeserializeObject<Config>(File.ReadAllText("config.json"));
 
             // Setup
             OGameStringProvider stringProvider = OGameStringProvider.Load(@"Resources\strings-en.json");
-
-            //stringProvider.SetLocalizedName(ResourceType.Metal, "Metal");
-            //stringProvider.SetLocalizedName(ResourceType.Crystal, "Crystal");
-            //stringProvider.SetLocalizedName(ResourceType.Deuterium, "Deuterium");
-            //stringProvider.SetLocalizedName(ResourceType.Energy, "Energy");
-            //stringProvider.SetLocalizedName(ShipType.LightFighter, "Light Fighter");
-            //stringProvider.SetLocalizedName(ShipType.HeavyFighter, "Heavy Fighter");
-            //stringProvider.Save("strings-en.json");
-
+            
             CultureInfo clientServerCulture = CultureInfo.GetCultureInfo("da-DK");
-
+            
             // Processing
-            OGameClient client = new OGameClient(server, stringProvider, user, pass);
+            OGameClient client = new OGameClient(config.Server, stringProvider, config.Username, config.Password);
             client.Settings.ServerUtcOffset = TimeSpan.FromHours(1);
             client.Settings.Galaxies = 8;
             client.Settings.Systems = 499;
@@ -40,7 +38,7 @@ namespace OgameBot
             client.RegisterSaver(new GalaxyPageDebrisSaver());
 
             OgameClientProxy xx = new OgameClientProxy("127.0.0.1", 9400, client);
-            xx.SubstituteRoot = new Uri($"https://{server}");
+            xx.SubstituteRoot = new Uri($"https://{config.Server}");
             xx.Start();
 
             client.RegisterDefaultHeader("Accept-Language", "en-GB,en;q=0.8,da;q=0.6");
