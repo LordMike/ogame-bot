@@ -19,7 +19,7 @@ namespace OgameBot.Engine
         private readonly string _username;
         private readonly string _password;
 
-        private List<DbSaverBase> _savers;
+        private List<SaverBase> _savers;
 
         public OGameStringProvider StringProvider { get; }
 
@@ -31,7 +31,7 @@ namespace OgameBot.Engine
             _username = username;
             _password = password;
 
-            _savers = new List<DbSaverBase>();
+            _savers = new List<SaverBase>();
 
             StringProvider = stringProvider;
             BaseUri = new Uri($"https://{server}/");
@@ -53,7 +53,7 @@ namespace OgameBot.Engine
             RegisterIntervention(new OGameAutoLoginner(this));
         }
 
-        public void RegisterSaver(DbSaverBase saver)
+        public void RegisterSaver(SaverBase saver)
         {
             using (EnterExclusive())
                 _savers.Add(saver);
@@ -68,7 +68,7 @@ namespace OgameBot.Engine
             }
 
             // Save to DB
-            foreach (DbSaverBase saver in _savers)
+            foreach (SaverBase saver in _savers)
             {
                 saver.Run(response.ParsedObjects);
             }

@@ -7,7 +7,7 @@ using ScraperClientLib.Engine;
 
 namespace OgameBot.Savers
 {
-    public class EspionageReportSaver : DbSaverBase
+    public class EspionageReportSaver : SaverBase
     {
         public override void Run(List<DataObject> result)
         {

@@ -8,7 +8,7 @@ using ScraperClientLib.Engine;
 
 namespace OgameBot.Savers
 {
-    public class GalaxyPageSaver : DbSaverBase
+    public class GalaxyPageSaver : SaverBase
     {
         public override void Run(List<DataObject> result)
         {
