@@ -52,6 +52,9 @@ namespace OgameBot
             client.PerformLogin();
 
             // Example job
+            ApiImporterJob job1 = new ApiImporterJob(client, new DirectoryInfo("temp"));
+            job1.Start();
+
             ScannerJob job = new ScannerJob(client, new SystemCoordinate(6, 60), new SystemCoordinate(6, 100));
             job.Start();
 

@@ -72,6 +72,7 @@
     <Compile Include="Engine\Parsing\GalaxyPageInfoPartItem.cs" />
     <Compile Include="Engine\Parsing\GalaxyPageSystem.cs" />
     <Compile Include="Engine\Parsing\PlayerStatus.cs" />
+    <Compile Include="Engine\Tasks\ApiImporterJob.cs" />
     <Compile Include="Utilities\KeyValuePair.cs" />
     <Compile Include="Engine\Commands\ScanGalaxyCommand.cs" />
     <Compile Include="Db\BotDb.cs" />
@@ -143,6 +144,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\OgameApi\OgameApi.csproj">
+      <Project>{536aa7a0-9d59-4ac2-8e4a-abf32d13ea0a}</Project>
+      <Name>OgameApi</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ScraperClientLib\ScraperClientLib.csproj">
       <Project>{B19BAE44-7FC4-45CE-B42D-867237E2D47E}</Project>
       <Name>ScraperClientLib</Name>
