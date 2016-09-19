@@ -3,9 +3,9 @@ using System.Globalization;
 using System.IO;
 using Newtonsoft.Json;
 using OgameBot.Engine;
+using OgameBot.Engine.Savers;
+using OgameBot.Engine.Tasks;
 using OgameBot.Objects;
-using OgameBot.Savers;
-using OgameBot.Tasks;
 
 namespace OgameBot
 {

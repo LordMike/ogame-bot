@@ -44,14 +44,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Engine\BaseParser.cs" />
+    <Compile Include="Engine\Parsing\BaseParser.cs" />
     <Compile Include="Engine\ClientBase.cs" />
-    <Compile Include="Engine\DataObject.cs" />
-    <Compile Include="Engine\IInterventionHandler.cs" />
-    <Compile Include="Engine\InterventionResult.cs" />
-    <Compile Include="Engine\InterventionResultState.cs" />
+    <Compile Include="Engine\Parsing\DataObject.cs" />
+    <Compile Include="Engine\Interventions\IInterventionHandler.cs" />
+    <Compile Include="Engine\Interventions\InterventionResult.cs" />
+    <Compile Include="Engine\Interventions\InterventionResultState.cs" />
     <Compile Include="Engine\ResponseContainer.cs" />
-    <Compile Include="Engine\RetryIntervention.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\NameValueCollectionExtensions.cs" />
     <Compile Include="Utilities\StreamExtensions.cs" />

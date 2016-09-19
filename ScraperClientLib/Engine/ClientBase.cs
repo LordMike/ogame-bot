@@ -4,6 +4,8 @@ using System.Collections.Specialized;
 using System.Globalization;
 using System.Net.Http;
 using System.Threading;
+using ScraperClientLib.Engine.Interventions;
+using ScraperClientLib.Engine.Parsing;
 using ScraperClientLib.Utilities;
 
 namespace ScraperClientLib.Engine

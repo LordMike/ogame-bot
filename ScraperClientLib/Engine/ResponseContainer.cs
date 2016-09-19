@@ -4,6 +4,7 @@ using System.IO;
 using System.Net;
 using System.Net.Http;
 using HtmlAgilityPack;
+using ScraperClientLib.Engine.Parsing;
 using ScraperClientLib.Utilities;
 
 namespace ScraperClientLib.Engine

@@ -4,10 +4,12 @@ using System.Collections.Specialized;
 using System.Data.Entity;
 using System.Diagnostics;
 using System.Net.Http;
+using OgameBot.Engine.Interventions;
+using OgameBot.Engine.Parsing;
+using OgameBot.Engine.Savers;
 using OgameBot.Objects;
-using OgameBot.Parsers;
-using OgameBot.Savers;
 using ScraperClientLib.Engine;
+using ScraperClientLib.Engine.Parsing;
 
 namespace OgameBot.Engine
 {
