@@ -128,7 +128,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tasks\ScannerJob.cs" />
-    <Compile Include="Tasks\TaskBase.cs" />
+    <Compile Include="Tasks\WorkerBase.cs" />
     <Compile Include="Utilities\DictionaryExtensions.cs" />
     <Compile Include="Utilities\HtmlNodeExtensions.cs" />
   </ItemGroup>

@@ -5,14 +5,14 @@ using System.Timers;
 
 namespace OgameBot.Tasks
 {
-    public abstract class TaskBase
+    public abstract class WorkerBase
     {
         private readonly Timer _timer;
         private bool _isRunning;
         public TimeSpan ExecutionInterval { get; set; }
 
 
-        public TaskBase()
+        public WorkerBase()
         {
             _timer = new Timer();
             _timer.Elapsed += TimerOnElapsed;

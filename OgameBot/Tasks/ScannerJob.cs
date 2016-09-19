@@ -8,7 +8,7 @@ using OgameBot.Objects;
 
 namespace OgameBot.Tasks
 {
-    public class ScannerJob : TaskBase
+    public class ScannerJob : WorkerBase
     {
         private static readonly TimeSpan RescanInterval = TimeSpan.FromHours(8);
 
