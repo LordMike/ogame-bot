@@ -33,21 +33,25 @@ namespace OgameBot
             client.Settings.Systems = 499;
             client.ServerCulture = clientServerCulture;
 
+            // Savers
             client.RegisterSaver(new GalaxyPageSaver());
             client.RegisterSaver(new EspionageReportSaver());
             client.RegisterSaver(new GalaxyPageDebrisSaver());
 
-            OgameClientProxy xx = new OgameClientProxy("127.0.0.1", 9400, client);
-            xx.SubstituteRoot = new Uri($"https://{config.Server}");
-            xx.Start();
-
+            // UA stuff
             client.RegisterDefaultHeader("Accept-Language", "en-GB,en;q=0.8,da;q=0.6");
             client.RegisterDefaultHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
             client.RegisterDefaultHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36");
 
+            // Start proxy
+            OgameClientProxy proxy = new OgameClientProxy("127.0.0.1", 9400, client);
+            proxy.SubstituteRoot = new Uri($"https://{config.Server}");
+            proxy.Start();
+
+            // Kick-off
             client.PerformLogin();
 
-            // Preparing
+            // Example job
             ScannerJob job = new ScannerJob(client, new SystemCoordinate(6, 60), new SystemCoordinate(6, 100));
             job.Start();
 

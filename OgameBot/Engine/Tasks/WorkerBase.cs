@@ -10,8 +10,7 @@ namespace OgameBot.Engine.Tasks
         private readonly Timer _timer;
         private bool _isRunning;
         public TimeSpan ExecutionInterval { get; set; }
-
-
+        
         public WorkerBase()
         {
             _timer = new Timer();
