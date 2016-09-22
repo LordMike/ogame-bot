@@ -9,5 +9,7 @@ namespace OgameBot.Engine.Parsing.Objects
         public string Name { get; set; }
 
         public int Id { get; set; }
+
+        public SendShipsInfo EspionageLinkInfo { get; set; }
     }
 }

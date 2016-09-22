@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
@@ -5,6 +6,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using OgameBot.Engine.Parsing.Objects;
+using OgameBot.Engine.Parsing.UtilityParsers;
 using OgameBot.Objects;
 using OgameBot.Objects.Types;
 using OgameBot.Utilities;
@@ -44,6 +46,8 @@ namespace OgameBot.Engine.Parsing
             {
                 string positionText = row.SelectSingleNode("./td[contains(@class, 'position')]").InnerText;
                 byte position = byte.Parse(positionText, NumberStyles.Integer, client.ServerCulture);
+
+                HtmlNodeCollection linkNodesWithOnClick = row.SelectNodes(".//a[@onclick]");
 
                 HtmlNode planetNode = row.SelectSingleNode("./td[@data-planet-id]");
                 HtmlNode moonNode = row.SelectSingleNode("./td[@data-moon-id]");
@@ -217,6 +221,31 @@ namespace OgameBot.Engine.Parsing
 
                     item.AllyId = playerAllyId;
                     item.AllyName = playerAllyName;
+                }
+
+                // Process links
+                if (linkNodesWithOnClick != null)
+                {
+                    foreach (HtmlNode node in linkNodesWithOnClick)
+                    {
+                        string onClickText = node.GetAttributeValue("onclick", string.Empty);
+                        var sendShipsCommand = SendShipsLinkParser.ParseSendLink(onClickText);
+
+                        if (sendShipsCommand == null)
+                            continue;
+
+                        if (sendShipsCommand.Mission == MissionType.Espionage)
+                        {
+                            if (sendShipsCommand.Coord.Type == CoordinateType.Planet)
+                            {
+                                item.Planet.EspionageLinkInfo = sendShipsCommand;
+                            }
+                            else if (sendShipsCommand.Coord.Type == CoordinateType.Moon)
+                            {
+                                item.Moon.EspionageLinkInfo = sendShipsCommand;
+                            }
+                        }
+                    }
                 }
 
                 // TODO: Rankings

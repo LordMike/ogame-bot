@@ -1,5 +1,6 @@
 using System;
 using System.Text.RegularExpressions;
+using OgameBot.Engine.Parsing.Objects;
 using OgameBot.Objects;
 using OgameBot.Objects.Types;
 
@@ -23,23 +24,25 @@ namespace OgameBot.Engine.Parsing.UtilityParsers
         ///                                            ); return false;     Espionage 6:73:6-planet with 40 probes
         /// </summary>
         /// <param name="linkText"></param>
-        public static Tuple<MissionType, Coordinate, int> ParseSendLink(string linkText)
+        public static SendShipsInfo ParseSendLink(string linkText)
         {
-            var match = _regex.Match(linkText);
+            Match match = _regex.Match(linkText);
 
             if (!match.Success)
                 return null;
 
-            MissionType mission = (MissionType)int.Parse(match.Groups[1].Value);
-            byte galaxy = (byte)int.Parse(match.Groups[2].Value);
-            short system = (short)int.Parse(match.Groups[3].Value);
-            byte planet = (byte)int.Parse(match.Groups[4].Value);
-            CoordinateType type = (CoordinateType)int.Parse(match.Groups[5].Value);
-            int shipCount = int.Parse(match.Groups[6].Value);
+            Group groupInfo = match.Groups[1];
+
+            MissionType mission = (MissionType)int.Parse(groupInfo.Captures[0].Value);
+            byte galaxy = (byte)int.Parse(groupInfo.Captures[1].Value);
+            short system = (short)int.Parse(groupInfo.Captures[2].Value);
+            byte planet = (byte)int.Parse(groupInfo.Captures[3].Value);
+            CoordinateType type = (CoordinateType)int.Parse(groupInfo.Captures[4].Value);
+            int shipCount = int.Parse(groupInfo.Captures[5].Value);
 
             Coordinate coord = new Coordinate(galaxy, system, planet, type);
 
-            return Tuple.Create(mission, coord, shipCount);
+            return new SendShipsInfo(mission, coord, shipCount);
         }
     }
 }

@@ -64,6 +64,7 @@
     <Compile Include="Config.cs" />
     <Compile Include="Db\DebrisField.cs" />
     <Compile Include="Engine\Interventions\RetryIntervention.cs" />
+    <Compile Include="Engine\Parsing\Objects\SendShipsInfo.cs" />
     <Compile Include="Engine\Parsing\UtilityParsers\SendShipsLinkParser.cs" />
     <Compile Include="Engine\Savers\SaverBase.cs" />
     <Compile Include="Engine\Savers\EspionageReportSaver.cs" />
