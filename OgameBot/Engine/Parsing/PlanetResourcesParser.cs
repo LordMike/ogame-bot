@@ -22,15 +22,13 @@ namespace OgameBot.Engine.Parsing
         public override IEnumerable<DataObject> ProcessInternal(ClientBase client, ResponseContainer container)
         {
             HtmlDocument doc = container.ResponseHtml.Value;
-            HtmlNode worldNode = doc.DocumentNode.SelectSingleNode("//div[@id='myWorlds']/div[@id='planetList']/div[starts-with(@id, 'planet-')]/a[contains(@class, 'active')]");
-            
-            if (worldNode == null)
-                // Huh?
+            HtmlNode infoBox = doc.DocumentNode.SelectSingleNode("//div[@id='info']");
+
+            if (infoBox == null)
+                // Requirement for this parser
                 yield break;
 
-            string coordinate = worldNode.SelectSingleNode(".//span[contains(@class, 'planet-koords')]").InnerText;
-
-            HtmlNode infoBox = doc.DocumentNode.SelectSingleNode("//div[@id='info']");
+            Coordinate coord = container.GetParsedSingle<OgamePageInfo>().PlanetCoord;
 
             string metBoxHtml = infoBox.SelectSingleNode(".//li[@id='metal_box']").GetAttributeValue("title", null).Split('|').Last();
             string cryBoxHtml = infoBox.SelectSingleNode(".//li[@id='crystal_box']").GetAttributeValue("title", null).Split('|').Last();
@@ -53,7 +51,7 @@ namespace OgameBot.Engine.Parsing
 
             PlanetResources result = new PlanetResources();
 
-            result.Coordinate = Coordinate.Parse(coordinate, CoordinateType.Planet);
+            result.Coordinate = coord;
             result.Resources = new Resources
             {
                 Metal = int.Parse(metTds[0].InnerText, NumberStyles.AllowThousands | NumberStyles.Integer, client.ServerCulture),

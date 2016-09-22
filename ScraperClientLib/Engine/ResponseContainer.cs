@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using HtmlAgilityPack;
@@ -16,7 +17,7 @@ namespace ScraperClientLib.Engine
         public HttpResponseMessage ResponseMessage { get; }
 
         public Lazy<HtmlDocument> ResponseHtml { get; }
-
+        
 
         public HttpStatusCode StatusCode => ResponseMessage.StatusCode;
 
@@ -49,6 +50,16 @@ namespace ScraperClientLib.Engine
 
                 return doc;
             });
+        }
+
+        public T GetParsedSingle<T>()
+        {
+            return GetParsed<T>().Single();
+        }
+
+        public IEnumerable<T> GetParsed<T>()
+        {
+            return ParsedObjects.OfType<T>();
         }
     }
 }
