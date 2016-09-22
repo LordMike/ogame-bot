@@ -44,6 +44,8 @@ namespace OgameBot.Engine.Parsing.Objects
             }
         }
 
+        public string MiniFleetToken { get; set; }
+
         private string TryGet(string key, string @default)
         {
             string val = Fields[key];
@@ -69,7 +71,7 @@ namespace OgameBot.Engine.Parsing.Objects
 
         public override string ToString()
         {
-            return $"Ogame info, {Fields.Count:N0} fields. Server {Universe}, {UniverseSpeed}x";
+            return $"OgameInfo, Fields: {Fields.Count:N0}. Planet: {PlanetCoord} ({PlayerName}) Server: {Universe} ({UniverseSpeed}x)";
         }
     }
 }
