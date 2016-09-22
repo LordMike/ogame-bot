@@ -38,6 +38,7 @@ namespace OgameBot.Engine
 
             Settings = new OGameSettings();
 
+            RegisterParser(new PageInfoParser());
             RegisterParser(new DefencesPageParser());
             RegisterParser(new FacilitiesPageParser());
             RegisterParser(new FleetMovementPageParser());
