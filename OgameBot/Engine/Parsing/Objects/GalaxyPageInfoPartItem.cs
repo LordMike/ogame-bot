@@ -1,6 +1,6 @@
 using OgameBot.Objects;
 
-namespace OgameBot.Engine.Parsing
+namespace OgameBot.Engine.Parsing.Objects
 {
     public class GalaxyPageInfoPartItem
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace OgameBot.Engine.Parsing
+namespace OgameBot.Engine.Parsing.Objects
 {
     [Flags]
     public enum PlayerStatus

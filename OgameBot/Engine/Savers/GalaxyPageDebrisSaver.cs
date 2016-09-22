@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using OgameBot.Db;
 using OgameBot.Engine.Parsing;
+using OgameBot.Engine.Parsing.Objects;
 using OgameBot.Utilities;
 using ScraperClientLib.Engine.Parsing;
 
