@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using OgameBot.Objects;
 using ScraperClientLib.Engine.Parsing;
 
-namespace OgameBot.Engine.Parsing
+namespace OgameBot.Engine.Parsing.Objects
 {
     public class GalaxyPageSystem : DataObject
     {
