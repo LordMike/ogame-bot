@@ -6,7 +6,7 @@ using OgameBot.Objects;
 using OgameBot.Objects.Types;
 using OgameBot.Utilities;
 
-namespace OgameBot.Engine.Parsing
+namespace OgameBot.Engine.Parsing.UtilityParsers
 {
     public static class FleetCompositionParser
     {

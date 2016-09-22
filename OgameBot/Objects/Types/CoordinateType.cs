@@ -3,8 +3,8 @@
     public enum CoordinateType : byte
     {
         Unknown,
-        Planet,
-        DebrisField,
-        Moon
+        Planet = 1,
+        DebrisField = 2,
+        Moon = 3
     }
 }

@@ -64,6 +64,7 @@
     <Compile Include="Config.cs" />
     <Compile Include="Db\DebrisField.cs" />
     <Compile Include="Engine\Interventions\RetryIntervention.cs" />
+    <Compile Include="Engine\Parsing\UtilityParsers\SendShipsLinkParser.cs" />
     <Compile Include="Engine\Savers\SaverBase.cs" />
     <Compile Include="Engine\Savers\EspionageReportSaver.cs" />
     <Compile Include="Engine\Savers\GalaxyPageDebrisSaver.cs" />
@@ -109,7 +110,7 @@
     <Compile Include="Engine\Parsing\DefencesPageParser.cs" />
     <Compile Include="Engine\Parsing\EspionageDetailsParser.cs" />
     <Compile Include="Engine\Parsing\FacilitiesPageParser.cs" />
-    <Compile Include="Engine\Parsing\FleetCompositionParser.cs" />
+    <Compile Include="Engine\Parsing\UtilityParsers\FleetCompositionParser.cs" />
     <Compile Include="Engine\Parsing\FleetMovementPageParser.cs" />
     <Compile Include="Engine\Parsing\GalaxyPageParser.cs" />
     <Compile Include="Engine\Parsing\MessagesPageParser.cs" />
