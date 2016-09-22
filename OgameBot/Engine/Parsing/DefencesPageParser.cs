@@ -69,8 +69,7 @@ namespace OgameBot.Engine.Parsing
                         continue;
                 }
 
-                string countText = node.SelectSingleNode(".//span[@class='level']").ChildNodes.Last(s => s.NodeType == HtmlNodeType.Text).InnerText;
-                int count = int.Parse(countText, NumberStyles.Integer | NumberStyles.AllowThousands, client.ServerCulture);
+                int count = node.SelectSingleNode(".//span[@class='level']").GetFirstNumberChildNode(client.ServerCulture);
 
                 yield return new DetectedDefence
                 {

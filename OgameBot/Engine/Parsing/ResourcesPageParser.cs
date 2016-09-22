@@ -64,8 +64,7 @@ namespace OgameBot.Engine.Parsing
                         continue;
                 }
 
-                string levelText = node.SelectSingleNode(".//span[@class='level']").ChildNodes.First(s => s.NodeType == HtmlNodeType.Text).InnerText;
-                int level = int.Parse(levelText, NumberStyles.Integer | NumberStyles.AllowThousands, client.ServerCulture);
+                int level = node.SelectSingleNode(".//span[@class='level']").GetFirstNumberChildNode(client.ServerCulture);
 
                 HtmlNode fastBuildLinkNode = node.SelectSingleNode(".//a[contains(@class, 'fastBuild')]");
                 string fastBuildLink = fastBuildLinkNode?.GetAttributeValue("onclick", null).Split('\'')[1];
