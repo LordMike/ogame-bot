@@ -60,6 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Db\DbPlayer.cs" />
     <Compile Include="Engine\Commands\CommandBase.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Db\DebrisField.cs" />
@@ -81,7 +82,7 @@
     <Compile Include="Engine\Commands\ScanGalaxyCommand.cs" />
     <Compile Include="Db\BotDb.cs" />
     <Compile Include="Db\Parts\DbResources.cs" />
-    <Compile Include="Db\GalaxyItem.cs" />
+    <Compile Include="Db\DbPlanet.cs" />
     <Compile Include="Db\GalaxyScan.cs" />
     <Compile Include="Db\Parts\PlanetInfo.cs" />
     <Compile Include="Utilities\SerializerHelper.cs" />

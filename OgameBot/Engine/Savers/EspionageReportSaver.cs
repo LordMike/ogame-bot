@@ -17,19 +17,19 @@ namespace OgameBot.Engine.Savers
             using (BotDb db = new BotDb())
             {
                 long[] locIds = reports.Select(s => s.Coordinate.Id).ToArray();
-                Dictionary<long, GalaxyItem> existing = db.GalaxyItems.Where(s => locIds.Contains(s.LocationId)).ToDictionary(s => s.LocationId);
+                Dictionary<long, DbPlanet> existing = db.Planets.Where(s => locIds.Contains(s.LocationId)).ToDictionary(s => s.LocationId);
 
                 foreach (EspionageReport report in reports)
                 {
-                    GalaxyItem item;
+                    DbPlanet item;
                     if (!existing.TryGetValue(report.Coordinate, out item))
                     {
-                        item = new GalaxyItem
+                        item = new DbPlanet
                         {
                             Coordinate = report.Coordinate
                         };
 
-                        db.GalaxyItems.Add(item);
+                        db.Planets.Add(item);
                     }
 
                     if (report.Details.HasFlag(ReportDetails.Resources))

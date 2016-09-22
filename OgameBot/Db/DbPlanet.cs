@@ -7,11 +7,11 @@ using OgameBot.Utilities;
 
 namespace OgameBot.Db
 {
-    public class GalaxyItem
+    public class DbPlanet : ICreatedOn, IModifiedOn
     {
         private PlanetInfo _planetInfo;
 
-        public GalaxyItem()
+        public DbPlanet()
         {
             Resources = new DbResources();
         }
@@ -29,6 +29,10 @@ namespace OgameBot.Db
         /// Internal. Don't touch this
         /// </summary>
         public byte[] PlanetInfoData { get; set; }
+        
+        public DateTimeOffset CreatedOn { get; set; }
+
+        public DateTimeOffset UpdatedOn { get; set; }
 
         [NotMapped]
         public PlanetInfo PlanetInfo
@@ -60,7 +64,10 @@ namespace OgameBot.Db
         [MaxLength(255)]
         public string Name { get; set; }
 
-        public int PlayerId { get; set; }
+        public int? PlayerId { get; set; }
+
+        [ForeignKey(nameof(PlayerId))]
+        public virtual DbPlayer Player { get; set; }
 
         public void Update()
         {
@@ -69,7 +76,7 @@ namespace OgameBot.Db
 
         public override string ToString()
         {
-            return $"GalaxyItem {Coordinate}, id: {LocationId}";
+            return $"DbPlanet {Coordinate}, id: {LocationId}";
         }
     }
 }

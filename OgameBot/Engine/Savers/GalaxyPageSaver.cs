@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using OgameBot.Db;
-using OgameBot.Engine.Parsing;
 using OgameBot.Engine.Parsing.Objects;
 using OgameBot.Utilities;
 using ScraperClientLib.Engine.Parsing;
@@ -34,47 +33,64 @@ namespace OgameBot.Engine.Savers
 
                 scanInfo.LastScan = DateTimeOffset.Now;
 
+                // Prep players
+                int[] playerIds = result.OfType<GalaxyPageInfoItem>().Select(s => s.PlayerId).ToArray();
+                Dictionary<int, DbPlayer> players = db.Players.Where(s => playerIds.Contains(s.PlayerId)).ToDictionary(s => s.PlayerId);
+
                 // Individual items
                 long systemLower = systemDetails.System.LowerCoordinate;
                 long systemUpper = systemDetails.System.UpperCoordinate;
 
-                Dictionary<long, GalaxyItem> toRemove = db.GalaxyItems.Where(s => systemLower <= s.LocationId && s.LocationId <= systemUpper).ToDictionary(s => s.LocationId);
+                Dictionary<long, DbPlanet> toRemove = db.Planets.Where(s => systemLower <= s.LocationId && s.LocationId <= systemUpper).ToDictionary(s => s.LocationId);
 
                 foreach (GalaxyPageInfoItem row in result.OfType<GalaxyPageInfoItem>())
                 {
-                    GalaxyItem planet;
+                    DbPlayer player;
+                    if (!players.TryGetValue(row.PlayerId, out player))
+                    {
+                        player = new DbPlayer
+                        {
+                            PlayerId = row.PlayerId,
+                            Name = row.PlayerName
+                        };
+
+                        db.Players.Add(player);
+                        players[row.PlayerId] = player;
+                    }
+
+                    DbPlanet planet;
                     if (!toRemove.TryRemove(row.Planet.Coordinate, out planet))
                     {
-                        planet = new GalaxyItem
+                        planet = new DbPlanet
                         {
                             Coordinate = row.Planet.Coordinate
                         };
 
-                        db.GalaxyItems.Add(planet);
+                        db.Planets.Add(planet);
                     }
 
                     planet.Name = row.Planet.Name;
-                    planet.PlayerId = row.PlayerId;
+                    planet.Player = player;
 
                     if (row.Moon != null)
                     {
-                        GalaxyItem moon;
+                        DbPlanet moon;
                         if (!toRemove.TryRemove(row.Moon.Coordinate, out moon))
                         {
-                            moon = new GalaxyItem
+                            moon = new DbPlanet
                             {
                                 Coordinate = row.Moon.Coordinate
                             };
 
-                            db.GalaxyItems.Add(moon);
+                            db.Planets.Add(moon);
                         }
 
                         moon.Name = row.Moon.Name;
-                        moon.PlayerId = row.PlayerId;
+                        moon.Player = player;
                     }
                 }
 
-                db.GalaxyItems.RemoveRange(toRemove.Values);
+                db.Planets.RemoveRange(toRemove.Values);
                 toRemove.Clear();
 
                 db.SaveChanges();

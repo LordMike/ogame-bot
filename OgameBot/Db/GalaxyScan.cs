@@ -5,7 +5,7 @@ using OgameBot.Objects;
 
 namespace OgameBot.Db
 {
-    public class GalaxyScan
+    public class GalaxyScan : ICreatedOn
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int LocationId { get; set; }
@@ -15,6 +15,8 @@ namespace OgameBot.Db
             get { return CoordHelper.GetSysCoordinate(LocationId); }
             set { LocationId = CoordHelper.ToNumber(value); }
         }
+
+        public DateTimeOffset CreatedOn { get; set; }
 
         public DateTimeOffset LastScan { get; set; }
 
