@@ -19,7 +19,7 @@ namespace OgameBot.Engine
         private readonly string _username;
         private readonly string _password;
 
-        private List<SaverBase> _savers;
+        private readonly List<SaverBase> _savers;
 
         public OGameStringProvider StringProvider { get; }
 
