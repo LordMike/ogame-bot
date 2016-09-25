@@ -1,4 +1,3 @@
-using System;
 using System.Text.RegularExpressions;
 using OgameBot.Engine.Parsing.Objects;
 using OgameBot.Objects;

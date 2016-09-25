@@ -5,7 +5,6 @@ using System.Net;
 using HtmlAgilityPack;
 using OgameBot.Engine.Parsing.Objects;
 using OgameBot.Objects;
-using OgameBot.Objects.Types;
 using ScraperClientLib.Engine;
 using ScraperClientLib.Engine.Parsing;
 

@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Net.Http;
 using OgameBot.Engine.Commands;
-using OgameBot.Engine.Parsing;
 using OgameBot.Engine.Parsing.Objects;
 using OgameBot.Logging;
 using OgameBot.Objects;
