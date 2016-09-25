@@ -78,6 +78,9 @@ namespace OgameBot
             MessageReaderJob job2 = new MessageReaderJob(client);
             job2.Start();
 
+            SessionKeepAliveJob job3 = new SessionKeepAliveJob(client);
+            job3.Start();
+
             // Work
             Console.ReadLine();
         }

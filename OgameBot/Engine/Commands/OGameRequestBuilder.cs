@@ -39,5 +39,10 @@ namespace OgameBot.Engine.Commands
         {
             return _client.BuildRequest(new Uri($"/game/index.php?page=messages&messageId={messageId}&tabid={(int)tabType}&ajax=1", UriKind.Relative));
         }
+
+        public HttpRequestMessage GetOverviewPage()
+        {
+            return _client.BuildRequest(new Uri($"/game/index.php?page=overview", UriKind.Relative));
+        }
     }
 }

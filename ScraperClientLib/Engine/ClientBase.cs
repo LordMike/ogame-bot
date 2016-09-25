@@ -22,6 +22,8 @@ namespace ScraperClientLib.Engine
 
         public CultureInfo ServerCulture { get; set; }
 
+        public DateTime LastRequestUtc { get; private set; }
+
         protected ClientBase()
         {
             _httpClient = new HttpClient();
@@ -98,6 +100,7 @@ namespace ScraperClientLib.Engine
         private ResponseContainer IssueRequestInternal(HttpRequestMessage request)
         {
             HttpResponseMessage response = _httpClient.SendAsync(request).Sync();
+            LastRequestUtc = DateTime.UtcNow;
 
             ResponseContainer result = new ResponseContainer(request, response);
 
