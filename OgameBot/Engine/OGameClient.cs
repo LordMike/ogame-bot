@@ -60,6 +60,11 @@ namespace OgameBot.Engine
                 _savers.Add(saver);
         }
 
+        public IReadOnlyList<SaverBase> GetSavers()
+        {
+            return _savers.AsReadOnly();
+        }
+
         protected override void PostRequest(ResponseContainer response)
         {
             Debug.WriteLine($"Response to {response.RequestMessage.RequestUri}, ({response.ParsedObjects.Count:N0} parsed objects)");

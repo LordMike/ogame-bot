@@ -49,6 +49,16 @@ namespace ScraperClientLib.Engine
                 _interventionHandlers.Add(handler);
         }
 
+        public IReadOnlyList<BaseParser> GetParsers()
+        {
+            return _parsers.AsReadOnly();
+        }
+
+        public IReadOnlyList<IInterventionHandler> GetIntervention()
+        {
+            return _interventionHandlers.AsReadOnly();
+        }
+
         protected virtual void PostRequest(ResponseContainer response)
         {
 

@@ -27,8 +27,12 @@ namespace OgameBot
             _listenPort = listenPort;
             _client = client;
             _listener = new HttpListener();
-            _listener.Prefixes.Add($"http://{listenHost}:{listenPort}/");
+
+            ListenPrefix = $"http://{listenHost}:{listenPort}/";
+            _listener.Prefixes.Add(ListenPrefix);
         }
+
+        public string ListenPrefix { get; }
 
         public void Start()
         {

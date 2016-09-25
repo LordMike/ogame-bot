@@ -78,6 +78,8 @@
     <Compile Include="Engine\Parsing\Objects\GalaxyPageSystem.cs" />
     <Compile Include="Engine\Parsing\Objects\PlayerStatus.cs" />
     <Compile Include="Engine\Tasks\ApiImporterJob.cs" />
+    <Compile Include="Logging\Logger.cs" />
+    <Compile Include="Logging\LogLevel.cs" />
     <Compile Include="Utilities\KeyValuePair.cs" />
     <Compile Include="Engine\Commands\ScanGalaxyCommand.cs" />
     <Compile Include="Db\BotDb.cs" />
