@@ -6,6 +6,7 @@ using OgameBot.Engine;
 using OgameBot.Engine.Savers;
 using OgameBot.Engine.Tasks;
 using OgameBot.Logging;
+using OgameBot.Objects;
 using ScraperClientLib.Engine.Interventions;
 using ScraperClientLib.Engine.Parsing;
 
@@ -80,6 +81,10 @@ namespace OgameBot
 
             SessionKeepAliveJob job3 = new SessionKeepAliveJob(client);
             job3.Start();
+
+            // Farming bot
+            FarmingBot bot = new FarmingBot(client, SystemCoordinate.Create(6, 60), SystemCoordinate.Create(6, 100));
+            bot.Start();
 
             // Work
             Console.ReadLine();
