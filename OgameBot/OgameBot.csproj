@@ -69,11 +69,15 @@
     <Compile Include="Db\DebrisField.cs" />
     <Compile Include="Engine\Commands\ReadAllMessagesCommand.cs" />
     <Compile Include="Engine\Interventions\RetryIntervention.cs" />
+    <Compile Include="Engine\Parsing\Objects\EspionageReport.cs" />
+    <Compile Include="Engine\Parsing\Objects\MessageBase.cs" />
     <Compile Include="Engine\Parsing\MessageCountParser.cs" />
+    <Compile Include="Engine\Parsing\Objects\MessageType.cs" />
     <Compile Include="Engine\Parsing\Objects\MessageCountObject.cs" />
     <Compile Include="Engine\Parsing\Objects\OgamePageInfo.cs" />
     <Compile Include="Engine\Parsing\Objects\SendShipsInfo.cs" />
     <Compile Include="Engine\Parsing\PageInfoParser.cs" />
+    <Compile Include="Engine\Parsing\Objects\ReportDetails.cs" />
     <Compile Include="Engine\Parsing\UtilityParsers\SendShipsLinkParser.cs" />
     <Compile Include="Engine\Savers\SaverBase.cs" />
     <Compile Include="Engine\Savers\EspionageReportSaver.cs" />
@@ -133,7 +137,7 @@
     <Compile Include="Engine\Parsing\Objects\DetectedShip.cs" />
     <Compile Include="Engine\Parsing\Objects\FleetEndpointInfo.cs" />
     <Compile Include="Engine\Parsing\Objects\FleetInfo.cs" />
-    <Compile Include="Engine\Parsing\Objects\MessageEntry.cs" />
+    <Compile Include="Engine\Parsing\Objects\MessagesPage.cs" />
     <Compile Include="Engine\Parsing\Objects\PlanetListItem.cs" />
     <Compile Include="Engine\Parsing\Objects\PlanetResources.cs" />
     <Compile Include="Engine\Parsing\PlanetListParser.cs" />

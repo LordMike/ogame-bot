@@ -2,6 +2,7 @@
 using System.Linq;
 using OgameBot.Db;
 using OgameBot.Engine.Parsing;
+using OgameBot.Engine.Parsing.Objects;
 using ScraperClientLib.Engine.Parsing;
 
 namespace OgameBot.Engine.Savers

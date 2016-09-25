@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
+using OgameBot.Engine.Parsing.Objects;
 using OgameBot.Objects;
 using OgameBot.Objects.Types;
 using OgameBot.Utilities;
@@ -137,56 +138,6 @@ namespace OgameBot.Engine.Parsing
             }
 
             return res;
-        }
-    }
-
-    [Flags]
-    public enum ReportDetails
-    {
-        None = 0,
-        Resources = 1,
-        Ships = 2,
-        Defense = 4,
-        Buildings = 8,
-        Research = 16,
-        All = Resources | Ships | Defense | Buildings | Research
-    }
-
-    public enum MessageType
-    {
-        Unknown,
-        EspionageReport,
-        EspionageAction
-    }
-
-    public abstract class MessageBase : DataObject
-    {
-        public MessageTabType TabType { get; set; }
-
-        public int MessageId { get; set; }
-
-        public DateTimeOffset Sent { get; set; }
-    }
-
-    public class EspionageReport : MessageBase
-    {
-        public Coordinate Coordinate { get; set; }
-
-        public ReportDetails Details { get; set; }
-
-        public Resources Resources { get; set; }
-
-        public Dictionary<BuildingType, int> DetectedBuildings { get; set; }
-
-        public Dictionary<ShipType, int> DetectedShips { get; set; }
-
-        public Dictionary<DefenceType, int> DetectedDefence { get; set; }
-
-        public Dictionary<ResearchType, int> DetectedResearch { get; set; }
-
-        public override string ToString()
-        {
-            return $"Report {Coordinate}, level: {Details}";
         }
     }
 }
