@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Net.Http;
+using OgameBot.Engine.Commands;
 using OgameBot.Engine.Interventions;
 using OgameBot.Engine.Parsing;
 using OgameBot.Engine.Savers;
@@ -22,9 +23,13 @@ namespace OgameBot.Engine
 
         private readonly List<SaverBase> _savers;
 
+        public event Action<ResponseContainer> OnResponseReceived;
+
         public OGameStringProvider StringProvider { get; }
 
         public OGameSettings Settings { get; }
+
+        public OGameRequestBuilder RequestBuilder { get; }
 
         public OGameClient(string server, OGameStringProvider stringProvider, string username, string password)
         {
@@ -33,6 +38,8 @@ namespace OgameBot.Engine
             _password = password;
 
             _savers = new List<SaverBase>();
+
+            RequestBuilder = new OGameRequestBuilder(this);
 
             StringProvider = stringProvider;
             BaseUri = new Uri($"https://{server}/");
@@ -51,6 +58,7 @@ namespace OgameBot.Engine
             RegisterParser(new ShipyardPageParser());
             RegisterParser(new MessagesPageParser());
             RegisterParser(new EspionageDetailsParser());
+            RegisterParser(new MessageCountParser());
 
             RegisterIntervention(new OGameAutoLoginner(this));
         }
@@ -81,6 +89,9 @@ namespace OgameBot.Engine
             {
                 saver.Run(response.ParsedObjects);
             }
+
+            // Execute other interests
+            OnResponseReceived?.Invoke(response);
         }
 
         internal HttpRequestMessage PrepareLogin()

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Xml;
@@ -11,6 +10,7 @@ using OgameApi.Objects;
 using OgameApi.Utilities;
 using OgameBot.Db;
 using OgameBot.Engine.Parsing.Objects;
+using OgameBot.Logging;
 using OgameBot.Objects;
 using OgameBot.Objects.Types;
 using ScraperClientLib.Utilities;
@@ -50,6 +50,8 @@ namespace OgameBot.Engine.Tasks
 
             if (NeedUpdate(universeUri, universeFile, "universe").Sync())
             {
+                Logger.Instance.Log(LogLevel.Info, "ApiImporterJob: Updating universe from API");
+
                 Update(universeUri, universeFile).Sync();
 
                 Universe model = XmlModelSerializer.Deserialize<Universe>(universeFile);
@@ -58,6 +60,8 @@ namespace OgameBot.Engine.Tasks
 
             if (NeedUpdate(alliancesUri, alliancesFile, "alliances").Sync())
             {
+                Logger.Instance.Log(LogLevel.Info, "ApiImporterJob: Updating alliances from API");
+
                 Update(alliancesUri, alliancesFile).Sync();
 
                 AlliancesContainer model = XmlModelSerializer.Deserialize<AlliancesContainer>(alliancesFile);
@@ -66,6 +70,8 @@ namespace OgameBot.Engine.Tasks
 
             if (NeedUpdate(playersUri, playersFile, "players").Sync())
             {
+                Logger.Instance.Log(LogLevel.Info, "ApiImporterJob: Updating players from API");
+
                 Update(playersUri, playersFile).Sync();
 
                 PlayersContainer model = XmlModelSerializer.Deserialize<PlayersContainer>(playersFile);
@@ -74,6 +80,8 @@ namespace OgameBot.Engine.Tasks
 
             if (NeedUpdate(serverDataUri, serverDataFile, "serverData").Sync())
             {
+                Logger.Instance.Log(LogLevel.Info, "ApiImporterJob: Updating serverData from API");
+
                 Update(serverDataUri, serverDataFile).Sync();
 
                 ServerData model = XmlModelSerializer.Deserialize<ServerData>(serverDataFile);

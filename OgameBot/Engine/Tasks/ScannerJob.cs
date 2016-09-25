@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using OgameBot.Db;
-using OgameBot.Engine.Commands;
 using OgameBot.Objects;
 
 namespace OgameBot.Engine.Tasks
@@ -60,8 +60,8 @@ namespace OgameBot.Engine.Tasks
                     }
 
                     // Scan
-                    ScanGalaxyCommand cmd = new ScanGalaxyCommand(_client, coord);
-                    cmd.Run();
+                    HttpRequestMessage req = _client.RequestBuilder.GetGalaxyContent(coord);
+                    _client.IssueRequest(req);
                 }
             }
         }
