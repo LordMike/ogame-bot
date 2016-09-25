@@ -1,12 +1,18 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Xml;
 using OgameApi.Objects;
 using OgameApi.Utilities;
+using OgameBot.Db;
+using OgameBot.Engine.Parsing.Objects;
+using OgameBot.Objects;
+using OgameBot.Objects.Types;
 using ScraperClientLib.Utilities;
 
 namespace OgameBot.Engine.Tasks
@@ -77,22 +83,133 @@ namespace OgameBot.Engine.Tasks
 
         private void ProcessData(AlliancesContainer model)
         {
-            throw new NotImplementedException("Do something sensible");
+
         }
 
         private void ProcessData(PlayersContainer model)
         {
-            throw new NotImplementedException("Do something sensible");
+            using (BotDb db = new BotDb())
+            {
+                Dictionary<int, DbPlayer> allPlayers = db.Players.ToDictionary(s => s.PlayerId);
+                List<DbPlayer> newPlayers = new List<DbPlayer>();
+
+                for (int i = 0; i < model.Players.Length; i++)
+                {
+                    var player = model.Players[i];
+                    DbPlayer dbPlayer;
+                    if (!allPlayers.TryGetValue(player.Id, out dbPlayer))
+                    {
+                        dbPlayer = new DbPlayer
+                        {
+                            PlayerId = player.Id
+                        };
+
+                        newPlayers.Add(dbPlayer);
+                        allPlayers[player.Id] = dbPlayer;
+                    }
+
+                    dbPlayer.Name = player.Name;
+                    dbPlayer.Status = ParseStatus(player.Status);
+
+                    if (i % 250 == 0)
+                    {
+                        db.Players.AddRange(newPlayers);
+
+                        db.SaveChanges();
+
+                        newPlayers.Clear();
+                    }
+                }
+
+                db.Players.AddRange(newPlayers);
+
+                db.SaveChanges();
+            }
         }
 
         private void ProcessData(ServerData model)
         {
-            throw new NotImplementedException("Do something sensible");
+
         }
 
         private void ProcessData(Universe model)
         {
-            throw new NotImplementedException("Do something sensible");
+            using (BotDb db = new BotDb())
+            {
+                Dictionary<long, DbPlanet> allPlanets = db.Planets.ToDictionary(s => s.LocationId);
+                Dictionary<int, DbPlayer> allPlayers = db.Players.ToDictionary(s => s.PlayerId);
+
+                List<DbPlanet> newPlanets = new List<DbPlanet>();
+                List<DbPlayer> newPlayers = new List<DbPlayer>();
+
+                for (int i = 0; i < model.Planets.Length; i++)
+                {
+                    Planet planet = model.Planets[i];
+                    Coordinate planetCoords = Coordinate.Parse(planet.Coords, CoordinateType.Planet);
+
+                    DbPlanet dbPlanet;
+                    if (!allPlanets.TryGetValue(planetCoords.Id, out dbPlanet))
+                    {
+                        dbPlanet = new DbPlanet
+                        {
+                            Coordinate = planetCoords
+                        };
+
+                        newPlanets.Add(dbPlanet);
+                        allPlanets[planetCoords.Id] = dbPlanet;
+                    }
+
+                    dbPlanet.Name = planet.Name;
+                    dbPlanet.PlayerId = planet.Player;
+
+                    if (planet.Moon != null)
+                    {
+                        Coordinate moonCoords = Coordinate.Create(planetCoords, CoordinateType.Moon);
+
+                        DbPlanet dbMoon;
+                        if (!allPlanets.TryGetValue(moonCoords.Id, out dbMoon))
+                        {
+                            dbMoon = new DbPlanet
+                            {
+                                Coordinate = moonCoords
+                            };
+
+                            newPlanets.Add(dbMoon);
+                            allPlanets[moonCoords.Id] = dbMoon;
+                        }
+
+                        dbMoon.Name = planet.Moon.Name;
+                    }
+
+                    DbPlayer dbPlayer;
+                    if (!allPlayers.TryGetValue(planet.Player, out dbPlayer))
+                    {
+                        dbPlayer = new DbPlayer
+                        {
+                            PlayerId = planet.Player
+                        };
+
+                        newPlayers.Add(dbPlayer);
+                        allPlayers[dbPlayer.PlayerId] = dbPlayer;
+                    }
+
+                    if (i % 250 == 0)
+                    {
+                        db.Planets.AddRange(newPlanets);
+                        db.Players.AddRange(newPlayers);
+
+                        db.SaveChanges();
+
+                        newPlanets.Clear();
+                        newPlayers.Clear();
+                    }
+                }
+
+                db.Planets.AddRange(newPlanets);
+                db.Players.AddRange(newPlayers);
+
+                db.SaveChanges();
+            }
         }
 
         private static async Task Update(Uri uri, FileInfo file)
@@ -169,6 +286,43 @@ namespace OgameBot.Engine.Tasks
             }
 
             return DateTime.MaxValue;
+        }
+
+        private static PlayerStatus ParseStatus(string status)
+        {
+            PlayerStatus result = PlayerStatus.None;
+
+            if (string.IsNullOrEmpty(status))
+                return result;
+
+            foreach (char part in status)
+            {
+                switch (part)
+                {
+                    case 'v':
+                        result |= PlayerStatus.Vacation;
+                        break;
+                    case 'b':
+                        result |= PlayerStatus.Banned;
+                        break;
+                    case 'i':
+                        result |= PlayerStatus.Inactive;
+                        break;
+                    case 'I':
+                        result |= PlayerStatus.LongInactive;
+                        break;
+                    case 'o':
+                        result |= PlayerStatus.Outlaw;
+                        break;
+                    case 'a':
+                        result |= PlayerStatus.Admin;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+
+            return result;
         }
     }
 }

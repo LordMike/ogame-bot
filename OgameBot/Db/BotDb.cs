@@ -46,6 +46,9 @@ namespace OgameBot.Db
 
             foreach (DbEntityEntry entry in entries)
             {
+                if (entry.State == EntityState.Unchanged)
+                    continue;
+
                 ICreatedOn asICreatedOn = entry.Entity as ICreatedOn;
                 IModifiedOn asIModifiedOn = entry.Entity as IModifiedOn;
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using OgameBot.Engine.Parsing.Objects;
 
 namespace OgameBot.Db
 {
@@ -18,6 +19,8 @@ namespace OgameBot.Db
         public DateTimeOffset UpdatedOn { get; set; }
     
         public virtual ICollection<DbPlanet> Planets { get; set; }
+
+        public PlayerStatus Status { get; set; }
 
         public override string ToString()
         {

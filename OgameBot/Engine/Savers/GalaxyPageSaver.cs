@@ -50,13 +50,15 @@ namespace OgameBot.Engine.Savers
                     {
                         player = new DbPlayer
                         {
-                            PlayerId = row.PlayerId,
-                            Name = row.PlayerName
+                            PlayerId = row.PlayerId
                         };
 
                         db.Players.Add(player);
                         players[row.PlayerId] = player;
                     }
+
+                    player.Name = row.PlayerName;
+                    player.Status = row.PlayerStatus;
 
                     DbPlanet planet;
                     if (!toRemove.TryRemove(row.Planet.Coordinate, out planet))
