@@ -18,6 +18,8 @@ namespace OgameBot.Db
 
         public DbSet<DebrisField> DebrisFields { get; set; }
 
+        public DbSet<DbMessage> Messages { get; set; }
+
         public override int SaveChanges()
         {
             HandleAuditing();

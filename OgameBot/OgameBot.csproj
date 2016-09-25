@@ -60,6 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Db\DbMessage.cs" />
     <Compile Include="Db\DbPlayer.cs" />
     <Compile Include="Db\Interfaces\ICreatedOn.cs" />
     <Compile Include="Db\Interfaces\ILazySaver.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="Engine\Parsing\PageInfoParser.cs" />
     <Compile Include="Engine\Parsing\Objects\ReportDetails.cs" />
     <Compile Include="Engine\Parsing\UtilityParsers\SendShipsLinkParser.cs" />
+    <Compile Include="Engine\Savers\MessageSaver.cs" />
     <Compile Include="Engine\Savers\SaverBase.cs" />
     <Compile Include="Engine\Savers\EspionageReportSaver.cs" />
     <Compile Include="Engine\Savers\GalaxyPageDebrisSaver.cs" />
@@ -91,6 +93,7 @@
     <Compile Include="Engine\Tasks\MessageReaderJob.cs" />
     <Compile Include="Logging\Logger.cs" />
     <Compile Include="Logging\LogLevel.cs" />
+    <Compile Include="Utilities\EnumerableExtensions.cs" />
     <Compile Include="Utilities\KeyValuePair.cs" />
     <Compile Include="Engine\Commands\OGameRequestBuilder.cs" />
     <Compile Include="Db\BotDb.cs" />

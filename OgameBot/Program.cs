@@ -6,7 +6,6 @@ using OgameBot.Engine;
 using OgameBot.Engine.Savers;
 using OgameBot.Engine.Tasks;
 using OgameBot.Logging;
-using OgameBot.Objects;
 using ScraperClientLib.Engine.Interventions;
 using ScraperClientLib.Engine.Parsing;
 
@@ -43,6 +42,7 @@ namespace OgameBot
             client.RegisterSaver(new GalaxyPageSaver());
             client.RegisterSaver(new EspionageReportSaver());
             client.RegisterSaver(new GalaxyPageDebrisSaver());
+            client.RegisterSaver(new MessageSaver());
 
             // UA stuff
             client.RegisterDefaultHeader("Accept-Language", "en-GB,en;q=0.8,da;q=0.6");
@@ -75,8 +75,8 @@ namespace OgameBot
             ApiImporterJob job1 = new ApiImporterJob(client, new DirectoryInfo("temp"));
             job1.Start();
 
-            ScannerJob job = new ScannerJob(client, new SystemCoordinate(6, 60), new SystemCoordinate(6, 100));
-            job.Start();
+            MessageReaderJob job2 = new MessageReaderJob(client);
+            job2.Start();
 
             // Work
             Console.ReadLine();
