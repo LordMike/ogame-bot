@@ -15,8 +15,6 @@ namespace OgameBot.Engine
 {
     public class OGameClient : ClientBase
     {
-        private readonly Uri _loginUri = new Uri("https://en.ogame.gameforge.com/main/login");
-
         private readonly string _server;
         private readonly string _username;
         private readonly string _password;
@@ -96,13 +94,7 @@ namespace OgameBot.Engine
 
         internal HttpRequestMessage PrepareLogin()
         {
-            NameValueCollection nvc = new NameValueCollection();
-            nvc["kid"] = "";
-            nvc["uni"] = _server;
-            nvc["login"] = _username;
-            nvc["pass"] = _password;
-
-            return BuildPost(_loginUri, nvc);
+            return RequestBuilder.GetLoginRequest(_server, _username, _password);
         }
 
         public void PerformLogin()

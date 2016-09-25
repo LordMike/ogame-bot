@@ -59,5 +59,18 @@ namespace OgameBot.Engine.Commands
                 KeyValuePair.Create("token", token)
             });
         }
+
+        public HttpRequestMessage GetLoginRequest(string server, string username, string password)
+        {
+            Uri loginUri = new Uri("https://en.ogame.gameforge.com/main/login");
+
+            return _client.BuildPost(loginUri, new[]
+            {
+                KeyValuePair.Create("kid",string.Empty),
+                KeyValuePair.Create("uni", server),
+                KeyValuePair.Create("login", username),
+                KeyValuePair.Create("pass",password)
+            });
+        }
     }
 }
