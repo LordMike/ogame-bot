@@ -6,6 +6,7 @@ using System.Net.Http;
 using OgameBot.Engine.Interventions;
 using OgameBot.Engine.Parsing;
 using OgameBot.Engine.Savers;
+using OgameBot.Logging;
 using ScraperClientLib.Engine;
 using ScraperClientLib.Engine.Parsing;
 
@@ -67,6 +68,8 @@ namespace OgameBot.Engine
 
         protected override void PostRequest(ResponseContainer response)
         {
+            Logger.Instance.Log(LogLevel.Debug, $"Got {response.StatusCode} to {response.RequestMessage.RequestUri}, ({response.ParsedObjects.Count:N0} parsed objects)");
+
             Debug.WriteLine($"Response to {response.RequestMessage.RequestUri}, ({response.ParsedObjects.Count:N0} parsed objects)");
             foreach (DataObject dataObject in response.ParsedObjects)
             {
