@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Threading;
 using System.Threading.Tasks;
+using OgameBot.Db.Interfaces;
 
 namespace OgameBot.Db
 {
@@ -49,8 +50,11 @@ namespace OgameBot.Db
                 if (entry.State == EntityState.Unchanged)
                     continue;
 
+                ILazySaver asILazySaver = entry.Entity as ILazySaver;
                 ICreatedOn asICreatedOn = entry.Entity as ICreatedOn;
                 IModifiedOn asIModifiedOn = entry.Entity as IModifiedOn;
+
+                asILazySaver?.Update();
 
                 if (entry.State == EntityState.Added)
                 {
@@ -68,15 +72,5 @@ namespace OgameBot.Db
                 }
             }
         }
-    }
-
-    public interface ICreatedOn
-    {
-        DateTimeOffset CreatedOn { get; set; }
-    }
-
-    public interface IModifiedOn
-    {
-        DateTimeOffset UpdatedOn { get; set; }
     }
 }

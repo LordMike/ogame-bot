@@ -61,6 +61,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Db\DbPlayer.cs" />
+    <Compile Include="Db\Interfaces\ICreatedOn.cs" />
+    <Compile Include="Db\Interfaces\ILazySaver.cs" />
+    <Compile Include="Db\Interfaces\IModifiedOn.cs" />
     <Compile Include="Engine\Commands\CommandBase.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Db\DebrisField.cs" />

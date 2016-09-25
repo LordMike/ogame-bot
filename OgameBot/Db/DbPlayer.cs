@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using OgameBot.Db.Interfaces;
 using OgameBot.Engine.Parsing.Objects;
 
 namespace OgameBot.Db

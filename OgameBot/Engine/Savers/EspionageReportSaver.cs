@@ -55,8 +55,6 @@ namespace OgameBot.Engine.Savers
                         item.PlanetInfo.Ships = report.DetectedShips;
                         item.LastShipsTime = report.Sent;
                     }
-
-                    item.Update();
                 }
 
                 db.SaveChanges();

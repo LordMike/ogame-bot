@@ -1,13 +1,14 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using OgameBot.Db.Interfaces;
 using OgameBot.Db.Parts;
 using OgameBot.Objects;
 using OgameBot.Utilities;
 
 namespace OgameBot.Db
 {
-    public class DbPlanet : ICreatedOn, IModifiedOn
+    public class DbPlanet : ICreatedOn, IModifiedOn, ILazySaver
     {
         private PlanetInfo _planetInfo;
 
