@@ -17,7 +17,7 @@ namespace ScraperClientLib.Engine
         public HttpResponseMessage ResponseMessage { get; }
 
         public Lazy<HtmlDocument> ResponseHtml { get; }
-        
+
 
         public HttpStatusCode StatusCode => ResponseMessage.StatusCode;
 
@@ -44,7 +44,7 @@ namespace ScraperClientLib.Engine
                 }
 
                 Stream contentStream = ResponseMessage.Content.ReadAsStream2Async().Sync();
-                
+
                 HtmlDocument doc = new HtmlDocument();
                 doc.Load(contentStream);
 
@@ -52,9 +52,12 @@ namespace ScraperClientLib.Engine
             });
         }
 
-        public T GetParsedSingle<T>()
+        public T GetParsedSingle<T>(bool mandatory = true)
         {
-            return GetParsed<T>().Single();
+            if (mandatory)
+                return GetParsed<T>().Single();
+
+            return GetParsed<T>().SingleOrDefault();
         }
 
         public IEnumerable<T> GetParsed<T>()
