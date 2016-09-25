@@ -2,6 +2,7 @@
 using System.Linq;
 using OgameBot.Db;
 using OgameBot.Engine.Parsing.Objects;
+using OgameBot.Logging;
 using ScraperClientLib.Engine.Parsing;
 
 namespace OgameBot.Engine.Savers
@@ -21,6 +22,8 @@ namespace OgameBot.Engine.Savers
 
                 foreach (EspionageReport report in reports)
                 {
+                    Logger.Instance.Log(LogLevel.Info, $"Saving esp report on {report.Coordinate}, level: {report.Details}");
+
                     DbPlanet item;
                     if (!existing.TryGetValue(report.Coordinate, out item))
                     {
