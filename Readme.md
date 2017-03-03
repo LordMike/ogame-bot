@@ -3,6 +3,9 @@ OGame Bot
 
 A bot for OGame. Contributors welcome.
 
+## Note
+This bot is in a **non-working condition**. It is not functional, and cannot "just be used". 
+
 ### Disclaimer
 
 I do not work for Gameforge, or intend to do Gameforge harm. I just like making stuff, and this time around it's a bot.
